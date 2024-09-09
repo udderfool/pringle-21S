@@ -3,6 +3,7 @@
 #include "autons.hpp"
 #include "pros/misc.h"
 
+//big money $_$
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
