@@ -45,14 +45,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("Example Drive\n\nDrive forward and come back.", drive_example),
-      Auton("Example Turn\n\nTurn 3 times.", turn_example),
-      Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
-      Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
-      Auton("Swing Example\n\nSwing in an 'S' curve", swing_example),
-      Auton("Motion Chaining\n\nDrive forward, turn, and come back, but blend everything together :D", motion_chaining),
-      Auton("Combine all 3 movements", combining_movements),
-      Auton("Interference\n\nAfter driving forward, robot performs differently if interfered or not.", interfered_example),
+      Auton("Offense auton", offense),
+      Auton("Defense auton", defense)
   });
 
   // Initialize chassis and auton selector
@@ -119,10 +113,7 @@ void autonomous() {
 void opcontrol() {
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
-
   chassis.drive_brake_set(driver_preference_brake);
-  intake_lift.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-  bool shift_state;
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
@@ -133,64 +124,18 @@ void opcontrol() {
       //  * use the arrow keys to navigate the constants
       if (master.get_digital_new_press(DIGITAL_X))
         chassis.pid_tuner_toggle();
-
       // Trigger the selected autonomous routine
       if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
         autonomous();
         chassis.drive_brake_set(driver_preference_brake);
       }
-
       chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
     }
 
+    //ROBOT CODE HERE
     chassis.opcontrol_tank();  // Tank control
-    // chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
-    // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
-    // chassis.opcontrol_arcade_flipped(ez::SPLIT);    // Flipped split arcade
-    // chassis.opcontrol_arcade_flipped(ez::SINGLE);   // Flipped single arcade
-    shift_state = master.get_digital(DIGITAL_R1);
-    if (master.get_digital(DIGITAL_L2) && !shift_state) {
-      intake.move(127);
-    }
-    else if (master.get_digital(DIGITAL_L2) && shift_state) {
-      intake.move(-127);
-    }
-          else {
-            intake.move(0);
-          }
-    if (master.get_digital(DIGITAL_R2) && !shift_state) {
-      intake_lift.move(-127);  
-    }
-        else if (master.get_digital(DIGITAL_R2) && shift_state) {
-          intake_lift.move(127);
-        }
-          else {
-            intake_lift.move(0);
-          }
-          mogomech.button_toggle(master.get_digital(DIGITAL_B));
-
-    if (master.get_digital(DIGITAL_L2) && !shift_state) {
-      intake_2.move(-127);
-    }
-    else if (master.get_digital(DIGITAL_L2) && shift_state) {
-      intake_2.move(127);
-    }
-          else {
-            intake_2.move(0);
-          }
-    if (master.get_digital(DIGITAL_R2) && !shift_state) {
-      intake_lift.move(-127);  
-    }
-        else if (master.get_digital(DIGITAL_R2) && shift_state) {
-          intake_lift.move(127);
-        }
-          else {
-            intake_lift.move(0);
-          }
-          mogomech.button_toggle(master.get_digital(DIGITAL_B));
-    // . . .
-    // Put more user control code here!
-    // . . .
+    setIntake();
+    setMogo();
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
