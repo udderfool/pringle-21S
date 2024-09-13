@@ -4,8 +4,8 @@
 
 extern Drive chassis;
 
-void offense();
-void defense();
+void AWP();
+void rush();
 
 void drive_example();
 void turn_example();
