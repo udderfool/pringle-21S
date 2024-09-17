@@ -32,35 +32,33 @@ void default_constants() {
 
 void AWP(){
   //Score alliance
-  chassis.pid_drive_set(37.5_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(37.5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(10.5_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(10.5_in, DRIVE_SPEED, false);
   chassis.pid_wait_until(6_in);
   intake.move(127);
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(67.882_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(67.882_in, 80, true);
   chassis.pid_wait_until(63_in);
-  chassis.pid_speed_max_set(80);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_wait();
+  pros::delay(500); //0.5 second delay
   intake.move(-127);
-  chassis.pid_wait();
 
   //Get mogo
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(67.882_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(67.882_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(63_in);
   intake.move(127);
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-48_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-19.7_in);
   mogomech.set(true);
   chassis.pid_wait_until(-24_in);
@@ -69,24 +67,24 @@ void AWP(){
 
   //Old auton code
       //Score allaince
-    //chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+    //chassis.pid_odom_set(-20_in, DRIVE_SPEED, true);
     //chassis.pid_wait();
     //chassis.pid_turn_set(-90_deg, TURN_SPEED);
     //chassis.pid_wait();
-    //chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+    //chassis.pid_odom_set(-10_in, DRIVE_SPEED, true);
     //chassis.pid_wait_until(-6_in);
     //intake.move(127);
     //chassis.pid_wait();
       //get mogo
-    //chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+    //chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
     //chassis.pid_wait();
     //chassis.pid_turn_set(90_deg, TURN_SPEED);
     //chassis.pid_wait();
-    //chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+    //chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
     //chassis.pid_wait();
     //chassis.pid_turn_set(90_deg, TURN_SPEED);
     //chassis.pid_wait();
-    //chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+    //chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
     //chassis.pid_wait();
   
 
@@ -111,13 +109,13 @@ void drive_example() {
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
   // for slew, only enable it when the drive distance is greater than the slew distance + a few inches
 
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_odom_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_odom_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 }
 
@@ -142,7 +140,7 @@ void turn_example() {
 // Combining Turn + Drive
 ///
 void drive_and_turn() {
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
@@ -154,7 +152,7 @@ void drive_and_turn() {
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -165,7 +163,7 @@ void wait_until_change_speed() {
   // pid_wait_until will wait until the robot gets to a desired position
 
   // When the robot gets to 6 inches slowly, the robot will travel the remaining distance at full speed
-  chassis.pid_drive_set(24_in, 30, true);
+  chassis.pid_odom_set(24_in, 30, true);
   chassis.pid_wait_until(6_in);
   chassis.pid_speed_max_set(DRIVE_SPEED);  // After driving 6 inches at 30 speed, the robot will go the remaining distance at DRIVE_SPEED
   chassis.pid_wait();
@@ -180,7 +178,7 @@ void wait_until_change_speed() {
   chassis.pid_wait();
 
   // When the robot gets to -6 inches slowly, the robot will travel the remaining distance at full speed
-  chassis.pid_drive_set(-24_in, 30, true);
+  chassis.pid_odom_set(-24_in, 30, true);
   chassis.pid_wait_until(-6_in);
   chassis.pid_speed_max_set(DRIVE_SPEED);  // After driving 6 inches at 30 speed, the robot will go the remaining distance at DRIVE_SPEED
   chassis.pid_wait();
@@ -215,7 +213,7 @@ void motion_chaining() {
   // Motion chaining is where motions all try to blend together instead of individual movements.
   // This works by exiting while the robot is still moving a little bit.
   // To use this, replace pid_wait with pid_wait_quick_chain.
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
@@ -228,7 +226,7 @@ void motion_chaining() {
   chassis.pid_wait();
 
   // Your final motion should still be a normal pid_wait
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -236,7 +234,7 @@ void motion_chaining() {
 // Auto that tests everything
 ///
 void combining_movements() {
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
@@ -248,7 +246,7 @@ void combining_movements() {
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -259,13 +257,13 @@ void tug(int attempts) {
   for (int i = 0; i < attempts - 1; i++) {
     // Attempt to drive backward
     printf("i - %i", i);
-    chassis.pid_drive_set(-12_in, 127);
+    chassis.pid_odom_set(-12_in, 127);
     chassis.pid_wait();
 
     // If failsafed...
     if (chassis.interfered) {
       chassis.drive_sensor_reset();
-      chassis.pid_drive_set(-2_in, 20);
+      chassis.pid_odom_set(-2_in, 20);
       pros::delay(1000);
     }
     // If the robot successfully drove back, return
@@ -278,7 +276,7 @@ void tug(int attempts) {
 // If there is no interference, the robot will drive forward and turn 90 degrees.
 // If interfered, the robot will drive forward and then attempt to drive backward.
 void interfered_example() {
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   if (chassis.interfered) {
