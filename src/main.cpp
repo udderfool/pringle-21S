@@ -45,8 +45,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("Offense auton", AWP),
-      Auton("Defense auton", rush)
+      Auton("AWP", AWP),
+      Auton("Rush", rush)
   });
 
   // Initialize chassis and auton selector
