@@ -52,7 +52,7 @@ void AWP(){
   chassis.pid_wait();
 
   //Get mogo
-  chassis.pid_turn_set(-45_deg, TURN_SPEED);
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(67.882_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(63_in);
