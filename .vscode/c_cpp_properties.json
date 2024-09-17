@@ -5,20 +5,21 @@
       "includePath": [
         "${workspaceFolder}/**",
         "c:\\Users\\guill\\Downloads\\EZ-Template-Example-Project-3.1.0\\include",
-        "/Users/qlbbl/Desktop/Robotics/21S 24-25/Code/pringle-21S/include"
+        "/Users/qlbbl/Desktop/Robotics/21S 24-25/Code/pringle-21S/include",
+        "c:\\Users\\victo\\OneDrive\\Documents\\GitHub\\include"
       ],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE"
       ],
-      "compilerPath": "/Users/qlbbl/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
+      "compilerPath": "c:\\Users\\victo\\AppData\\Roaming\\Code\\User\\globalStorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\arm-none-eabi-g++",
       "cStandard": "gnu11",
       "cppStandard": "gnu++20",
       "intelliSenseMode": "gcc-arm",
       "browse": {
         "path": [
-          "/Users/qlbbl/Desktop/Robotics/21S 24-25/Code/pringle-21S"
+          "c:\\Users\\victo\\OneDrive\\Documents\\GitHub"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""
