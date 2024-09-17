@@ -38,9 +38,9 @@ void AWP(){
   chassis.pid_wait();
   chassis.pid_drive_set(10.5_in, DRIVE_SPEED, false);
   chassis.pid_wait_until(6_in);
-  intake.move(127);
+  intake.move(64);
   chassis.pid_wait();
-  chassis.pid_turn_set(-45_deg, TURN_SPEED);
+  chassis.pid_turn_set(-135_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(67.882_in, 80, true);
   chassis.pid_wait_until(63_in);
@@ -50,13 +50,13 @@ void AWP(){
   intake.move(-127);
 
   //Get mogo
-  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(67.882_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(63_in);
-  intake.move(127);
+  intake.move(64);
   chassis.pid_wait();
-  chassis.pid_turn_set(-45_deg, TURN_SPEED);
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-19.7_in);
