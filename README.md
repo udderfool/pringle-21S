@@ -1,1 +1,1 @@
-# 21S Code for High Stakes robot *Pringle*
+# 21S Code for High Stakes robot Pringle!
