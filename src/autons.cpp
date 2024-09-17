@@ -60,10 +60,10 @@ void AWP(){
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true)
+  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-19.7_in);
   mogomech.set(true);
-  pid_wait_until(-24_in);
+  chassis.pid_wait_until(-24_in);
   intake.move(127);
   chassis.pid_wait();
 
