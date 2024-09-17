@@ -18,7 +18,7 @@ temp.errors
 .DS_Store
 compile_commands.json
 /bin
-/.cache/clangd/index
-/.cache/clangd
 /.cache
 /.vscode
+/.vscode
+/.d
