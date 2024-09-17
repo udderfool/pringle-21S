@@ -38,7 +38,7 @@ void AWP(){
   chassis.pid_wait();
   chassis.pid_drive_set(10.5_in, DRIVE_SPEED, false);
   chassis.pid_wait_until(6_in);
-  intake.move(64);
+  intake.move(127);
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -46,7 +46,7 @@ void AWP(){
   chassis.pid_wait_until(63_in);
   chassis.pid_speed_max_set(80);
   chassis.pid_wait();
-  intake.move(64);
+  intake.move(127);
   chassis.pid_wait();
   intake.move(-127);
   chassis.pid_wait();
@@ -56,7 +56,7 @@ void AWP(){
   chassis.pid_wait();
   chassis.pid_drive_set(67.882_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(63_in);
-  intake.move(64);
+  intake.move(127);
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
