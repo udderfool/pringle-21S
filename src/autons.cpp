@@ -31,24 +31,33 @@ void default_constants() {
 }
 
 void AWP(){
-  //Score alliance
-  chassis.pid_drive_set(37.5_in, DRIVE_SPEED, true);
+  //Get mogo and score 2 rings
+  mogomech.set(false);
+  chassis.pid_drive_set(-36_in, DRIVE_SPEED, true);
   chassis.pid_wait();
+  mogomech.set(true);
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(10.5_in, DRIVE_SPEED, false);
-  chassis.pid_wait_until(6_in);
-  intake.move(64);
-  chassis.pid_wait();
-  chassis.pid_turn_set(-135_deg, TURN_SPEED);
-  chassis.pid_wait();
-  chassis.pid_drive_set(67.882_in, 80, true);
-  chassis.pid_wait_until(63_in);
-  chassis.pid_wait();
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(10_in);
   intake.move(127);
-  pros::delay(500); //0.5 second delay
-  intake.move(-127);
+  chassis.pid_wait();
+  //drop off mogo and drive to other one
+  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(325_deg, TURN_SPEED); //turning wrong direction as of rn
+  chassis.pid_wait();
+  intake.move(0);
+  mogomech.set(false);
+  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-45_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(35_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  mogomech.set(true);
 
+ /*
   //Get mogo
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -64,7 +73,7 @@ void AWP(){
   chassis.pid_wait_until(-24_in);
   intake.move(127);
   chassis.pid_wait();
-
+*/
   //Old auton code
       //Score allaince
     //chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
