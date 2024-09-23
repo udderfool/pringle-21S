@@ -45,11 +45,14 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("red wp", red),
-      Auton("blue wp", blue),
-      Auton("four ring", four_ring),
+      Auton("red four ring", red_4ring),
       Auton("Move forward", move_forward),
-      Auton("Rush", rush)
+      Auton("red wp", red_WP),
+      Auton("blue wp", blue_WP),
+      Auton("red 50% wp", red_50WP),
+      Auton("blue 50% wp", blue_50WP),
+
+      Auton("blue four ring", blue_4ring)
   });
 
   // Initialize chassis and auton selector

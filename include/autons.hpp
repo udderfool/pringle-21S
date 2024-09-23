@@ -4,11 +4,14 @@
 
 extern Drive chassis;
 
-void red();
-void blue();
 void move_forward();
-void four_ring();
-void rush();
+void red_WP();
+void red_50WP();
+void red_4ring();
+
+void blue_50WP();
+void blue_WP();
+void blue_4ring();
 
 void drive_example();
 void turn_example();
