@@ -4,7 +4,10 @@
 
 extern Drive chassis;
 
-void AWP();
+void red();
+void blue();
+void move_forward();
+void four_ring();
 void rush();
 
 void drive_example();

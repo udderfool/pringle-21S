@@ -1,4 +1,6 @@
 #include "main.h"
+#include "pros/rtos.hpp"
+#include "subsystems.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -6,9 +8,10 @@
 /////
 
 // These are out of 127
-const int DRIVE_SPEED = 110;
+const int DRIVE_SPEED = 127;
 const int TURN_SPEED = 90;
 const int SWING_SPEED = 90;
+const int GRAB_MOGO = 55;
 
 ///
 // Constants
@@ -30,32 +33,101 @@ void default_constants() {
   chassis.slew_drive_constants_set(7_in, 80);
 }
 
-void AWP(){
+void red(){
   //Get mogo and score 2 rings
   mogomech.set(false);
-  chassis.pid_drive_set(-36_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
+  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-22.5_in);
   mogomech.set(true);
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(10_in);
+  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(1_in);
   intake.move(127);
   chassis.pid_wait();
   //drop off mogo and drive to other one
   chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_turn_set(325_deg, TURN_SPEED); //turning wrong direction as of rn
+  chassis.pid_turn_set(66_deg, TURN_SPEED); 
   chassis.pid_wait();
-  intake.move(0);
   mogomech.set(false);
-  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
+  intake.move(0);
+  chassis.pid_drive_set(46.125_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(35_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
+  intake.move(127);
+  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-22_in);
   mogomech.set(true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(24_in, DRIVE_SPEED, false);
+  chassis.pid_wait_until(20_in);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
+}
+
+void blue(){
+  //Get mogo and score 2 rings
+  mogomech.set(false);
+  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-22_in);
+  mogomech.set(true);
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(1_in);
+  intake.move(127);
+  chassis.pid_wait();
+  //drop off mogo and drive to other one
+  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-66_deg, TURN_SPEED); 
+  chassis.pid_wait();
+  mogomech.set(false);
+  intake.move(0);
+  chassis.pid_drive_set(45.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(45_deg, TURN_SPEED);
+  chassis.pid_wait();
+  intake.move(127);
+  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-21_in);
+  mogomech.set(true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(24_in, DRIVE_SPEED, false);
+  chassis.pid_wait_until(20_in);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
+}
+
+void move_forward(){
+  chassis.pid_drive_set(5_in, DRIVE_SPEED, true);
+}
+void four_ring(){
+  mogomech.set(false);
+  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-22.5_in);
+  mogomech.set(true);
+  chassis.pid_drive_set(4_in, DRIVE_SPEED, true);
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(1_in);
+  intake.move(127);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(135_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(20_in, 75, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_drive_set(20_in, 50, true);
 
  /*
   //Get mogo
