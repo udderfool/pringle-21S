@@ -34,117 +34,117 @@ void default_constants() {
 }
 
 void move_forward(){
-  chassis.pid_drive_set(5_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(5_in, DRIVE_SPEED, true);
 } 
 //RED
 void red_WP(){
   //Get mogo and score 2 rings
   mogomech.set(false);
-  chassis.pid_drive_set(-32_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-32_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-22.75_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(26_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   //drop off mogo and drive to other one
-  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(66_deg, TURN_SPEED); 
   chassis.pid_wait();
   mogomech.set(false);
   intake.move(0);
-  chassis.pid_drive_set(46.125_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(46.125_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-35_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-22_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, false);
   chassis.pid_wait_until(20_in);
   chassis.pid_wait();
-  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
+  chassis.pid_odom_set(-48_in, DRIVE_SPEED, true); 
 }
 
 void red_50WP(){
   //Get mogo and score 2 rings
   mogomech.set(false);
-  chassis.pid_drive_set(-34_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-34_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-22.75_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(22_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(22_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   //drop off mogo and touch mid
   pros::delay(2000);
   chassis.pid_turn_set(90_deg, TURN_SPEED); 
   chassis.pid_wait();
-  chassis.pid_drive_set(48_in, 75, true);
+  chassis.pid_odom_set(48_in, 75, true);
   chassis.pid_wait();
    if (!chassis.interfered) {
     intake.move(0);
     return;
   }
   intake.move(0);
-  chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(12_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
 void red_4ring(){
   //score on allaince stake
-  chassis.pid_drive_set(-18.5_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(-18.5_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(-12_in, DRIVE_SPEED, false);
   chassis.pid_wait();
-  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(16_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-135_deg, TURN_SPEED); //turn to mogo
   chassis.pid_wait();
-  chassis.pid_drive_set(-39_in, 90, true);
+  chassis.pid_odom_set(-39_in, 90, true);
   chassis.pid_wait_until(-30_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(0_deg, TURN_SPEED); //turn to mogo
   chassis.pid_wait();
-  chassis.pid_drive_set(23_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(23_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(1_in);
   intake.move(127);
   chassis.pid_wait();
   pros::delay(750);
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(11_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(11_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   pros::delay(500);
-  chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(-10_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(-15_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(-15_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(8.5_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(8.5_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   pros::delay(500);
-  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-20_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(180_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(36_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(36_in, DRIVE_SPEED, true);
 }
 
 
@@ -153,50 +153,50 @@ void red_4ring(){
 void blue_WP(){
   //Get mogo and score 2 rings
   mogomech.set(false);
-  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-35_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-22.75_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(22_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(22_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   //drop off mogo and drive to other one
-  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-66_deg, TURN_SPEED); 
   chassis.pid_wait();
   mogomech.set(false);
   intake.move(0);
-  chassis.pid_drive_set(45.5_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(45.5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(45_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-35_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-21_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, false);
   chassis.pid_wait_until(20_in);
   chassis.pid_wait();
-  chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
+  chassis.pid_odom_set(-48_in, DRIVE_SPEED, true); 
 }
 
 void blue_50WP(){
   //Get mogo and score 2 rings
   mogomech.set(false);
-  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-35_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-22.75_in);
   mogomech.set(true);
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  chassis.pid_drive_set(22_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(22_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   //drop off mogo and touch mid
   pros::delay(2000);
@@ -205,12 +205,12 @@ void blue_50WP(){
   pros::delay(1500);
   mogomech.set(false);
   intake.move(0);
-  chassis.pid_drive_set(48_in, 75, true);
+  chassis.pid_odom_set(48_in, 75, true);
   chassis.pid_wait();
    if (!chassis.interfered) {
     return;
   }
-  chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(12_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -228,13 +228,13 @@ void drive_example() {
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
   // for slew, only enable it when the drive distance is greater than the slew distance + a few inches
 
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_odom_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_odom_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 }
 
@@ -259,7 +259,7 @@ void turn_example() {
 // Combining Turn + Drive
 ///
 void drive_and_turn() {
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
@@ -271,7 +271,7 @@ void drive_and_turn() {
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -282,7 +282,7 @@ void wait_until_change_speed() {
   // pid_wait_until will wait until the robot gets to a desired position
 
   // When the robot gets to 6 inches slowly, the robot will travel the remaining distance at full speed
-  chassis.pid_drive_set(24_in, 30, true);
+  chassis.pid_odom_set(24_in, 30, true);
   chassis.pid_wait_until(6_in);
   chassis.pid_speed_max_set(DRIVE_SPEED);  // After driving 6 inches at 30 speed, the robot will go the remaining distance at DRIVE_SPEED
   chassis.pid_wait();
@@ -297,7 +297,7 @@ void wait_until_change_speed() {
   chassis.pid_wait();
 
   // When the robot gets to -6 inches slowly, the robot will travel the remaining distance at full speed
-  chassis.pid_drive_set(-24_in, 30, true);
+  chassis.pid_odom_set(-24_in, 30, true);
   chassis.pid_wait_until(-6_in);
   chassis.pid_speed_max_set(DRIVE_SPEED);  // After driving 6 inches at 30 speed, the robot will go the remaining distance at DRIVE_SPEED
   chassis.pid_wait();
@@ -332,7 +332,7 @@ void motion_chaining() {
   // Motion chaining is where motions all try to blend together instead of individual movements.
   // This works by exiting while the robot is still moving a little bit.
   // To use this, replace pid_wait with pid_wait_quick_chain.
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
@@ -345,7 +345,7 @@ void motion_chaining() {
   chassis.pid_wait();
 
   // Your final motion should still be a normal pid_wait
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -353,7 +353,7 @@ void motion_chaining() {
 // Auto that tests everything
 ///
 void combining_movements() {
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
@@ -365,7 +365,7 @@ void combining_movements() {
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -376,13 +376,13 @@ void tug(int attempts) {
   for (int i = 0; i < attempts - 1; i++) {
     // Attempt to drive backward
     printf("i - %i", i);
-    chassis.pid_drive_set(-12_in, 127);
+    chassis.pid_odom_set(-12_in, 127);
     chassis.pid_wait();
 
     // If failsafed...
     if (chassis.interfered) {
       chassis.drive_sensor_reset();
-      chassis.pid_drive_set(-2_in, 20);
+      chassis.pid_odom_set(-2_in, 20);
       pros::delay(1000);
     }
     // If the robot successfully drove back, return
@@ -395,7 +395,7 @@ void tug(int attempts) {
 // If there is no interference, the robot will drive forward and turn 90 degrees.
 // If interfered, the robot will drive forward and then attempt to drive backward.
 void interfered_example() {
-  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+  chassis.pid_odom_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   if (chassis.interfered) {
