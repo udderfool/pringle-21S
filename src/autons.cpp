@@ -105,10 +105,11 @@ void red_4ring(){
   chassis.pid_drive_set(-18.5_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
-  intake.move(127);
   chassis.pid_wait();
   chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
-  chassis.pid_wait();
+  intake.move(127);
+  pros::delay(500);
+  chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-135_deg, TURN_SPEED); //turn to mogo
@@ -120,8 +121,6 @@ void red_4ring(){
   chassis.pid_turn_set(0_deg, TURN_SPEED); //turn to mogo
   chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(20_in);
-  intake.move(127);
   pros::delay(500);
   chassis.pid_drive_set(-2_in, DRIVE_SPEED, false);
   chassis.pid_wait();
