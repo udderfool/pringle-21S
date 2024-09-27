@@ -214,7 +214,53 @@ void blue_50WP(){
   chassis.pid_wait();
 }
 
-void blue_4ring(){}
+void blue_4ring(){
+    //this is all in theory so it may not work whatsoever
+  //score on allaince stake
+  chassis.pid_drive_set(-18.5_in, DRIVE_SPEED, false);
+  //chassis.pid_wait_until(-8_in);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+  intake.move(127);
+  chassis.pid_wait();
+  pros::delay(150);
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(135_deg, TURN_SPEED); //turn to mogo -225
+  chassis.pid_wait();
+  chassis.pid_drive_set(-33_in, 75, true); //used to be 35 inches
+  chassis.pid_wait_until(-32.75_in);
+  mogomech.set(true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(0_deg, TURN_SPEED); //turn to rings
+  chassis.pid_wait();
+  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-1_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, false);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(8.5_in, DRIVE_SPEED, false);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-1_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(180_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+}
 
 
 
