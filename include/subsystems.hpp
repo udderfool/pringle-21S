@@ -6,7 +6,7 @@
 #include "pros/motors.hpp"
 
 //Motors, sensors, etc
-inline pros::MotorGroup intake({3, -4});
+inline pros::MotorGroup intake({6, -4});
 inline ez::Piston mogomech('G');
 // inline pros::adi::DigitalIn limit_switch('A');
 
