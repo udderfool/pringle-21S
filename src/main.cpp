@@ -45,16 +45,14 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("red four ring", red_4ring),      
+      Auton("red 4 ring wp", red_4ring),      
       Auton("blue four ring", blue_4ring),
-      Auton("Move forward", move_forward),
-      Auton("red wp", red_WP),
-      Auton("blue wp", blue_WP),
       Auton("red 50% wp", red_50WP),
       Auton("blue 50% wp", blue_50WP),
       Auton("red 4 ring no WP", red_4greed),
       Auton("blue 4 ring no WP", blue_4greed),
-      Auton("full mogos and alliance", skills)
+      Auton("Move forward", move_forward),
+      Auton("skills", skills)
       
   });
 

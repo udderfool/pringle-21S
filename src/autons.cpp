@@ -37,7 +37,7 @@ void move_forward(){
   chassis.pid_drive_set(5_in, DRIVE_SPEED, true);
 } 
 //RED
-void red_WP(){
+/*void red_WP(){
   //Get mogo and score 2 rings
   mogomech.set(false);
   chassis.pid_drive_set(-32_in, DRIVE_SPEED, true);
@@ -71,7 +71,7 @@ void red_WP(){
   chassis.pid_wait_until(20_in);
   chassis.pid_wait();
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
-}
+}*/
 
 void red_50WP(){
   //Get mogo and score 2 rings
@@ -159,31 +159,33 @@ void red_4greed(){
   chassis.pid_wait();
   chassis.pid_drive_set(-1_in, DRIVE_SPEED, false);
   chassis.pid_wait();
-  chassis.pid_turn_set(180_deg, TURN_SPEED);
+  chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(12_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  pros::delay(500);
+  chassis.pid_drive_set(-13_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+  chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(90_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(180_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(11_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-6_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  pros::delay(500);
+  chassis.pid_drive_set(-4_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
 //BLUE
 
-void blue_WP(){
+/*void blue_WP(){
   //Get mogo and score 2 rings
   mogomech.set(false);
   chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
@@ -217,7 +219,7 @@ void blue_WP(){
   chassis.pid_wait_until(20_in);
   chassis.pid_wait();
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
-}
+}*/
 
 void blue_50WP(){
   //Get mogo and score 2 rings
@@ -250,13 +252,13 @@ void blue_50WP(){
 void blue_4ring(){
     //this is all in theory so it may not work whatsoever
   //score on allaince stake
-  chassis.pid_drive_set(-18_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(-16_in, DRIVE_SPEED, false);
     chassis.pid_wait_until(-8_in);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
   intake.move(127);
-  pros::delay(150);
+  pros::delay(250);
   chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   pros::delay(150);
@@ -280,12 +282,13 @@ void blue_4ring(){
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-8_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(-7_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(12_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
   chassis.pid_wait();
+  pros::delay(200);
   chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
@@ -295,7 +298,7 @@ void blue_4ring(){
 }
 
 void blue_4greed(){
-  chassis.pid_drive_set(-30_in, 60, true);
+  chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-26.5_in);
   mogomech.set(true);
   chassis.pid_wait();
@@ -308,18 +311,20 @@ void blue_4greed(){
   chassis.pid_wait();
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(13_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  pros::delay(500);
+  chassis.pid_drive_set(-13_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(-6_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(-90, TURN_SPEED);
+  chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(10_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(18_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  pros::delay(500);
   chassis.pid_drive_set(-4_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
