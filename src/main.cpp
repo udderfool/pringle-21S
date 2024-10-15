@@ -143,6 +143,8 @@ void opcontrol() {
     chassis.opcontrol_tank();  // Tank control
     setIntake();
     setMogo();
+    setClamp();
+    setWall();
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }

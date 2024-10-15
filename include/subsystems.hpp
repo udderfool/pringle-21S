@@ -4,13 +4,19 @@
 #include "EZ-Template/api.hpp"
 #include "pros/motor_group.hpp"
 #include "pros/motors.hpp"
+#include "pros/optical.hpp"
 
 //Motors, sensors, etc
 inline pros::MotorGroup intake({6, -4});
 inline ez::Piston mogomech('G');
+inline ez::Piston ringclamp('A');
+inline ez::Piston wallmech('B');
+inline pros::Optical ringsens(3);
 // inline pros::adi::DigitalIn limit_switch('A');
 
 //Functions
 void setIntake();
 void setMogo();
+void setClamp();
+void setWall();
 bool shift();
