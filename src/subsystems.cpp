@@ -22,7 +22,7 @@ void setWall() {
     wallmech.set(false);
   }
 }
-
+//temp code for test or something idk
 void setClamp() {
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   while (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
