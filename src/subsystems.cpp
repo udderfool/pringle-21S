@@ -1,6 +1,18 @@
 #include "main.h"
 #include "pros/misc.h"
 
+string intakeColor = "neutral";
+
+void colorDetect() {
+  if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
+    string intakeColor = "red";
+  } else if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180)) {
+    string intakeColor = "blue";
+  } else {
+    string intakeColor = "neutral"; 
+  }
+}
+
 void setIntake() {
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
     intake.move(127);
@@ -28,7 +40,7 @@ void setClamp() {
   
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    if (((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) || ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180))) {
+    if (intakeColor == "red" || intakeColor == "blue") {
       ringclamp.set(true);
     }
   }
@@ -44,26 +56,30 @@ bool shift() {
 
 //auton subsystems
 
-void ringsensRed() {
-  if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180)) {
-    ringclamp.set(true);
-    pros::delay(500);
-    wallmech.set(true);
-    pros::delay(500);
-    ringclamp.set(false);
-    wallmech.set(false);
-    return;
+//variable changed during auton and driver to determine red/blue/no alliance selection
+char allianceColor = 'A';
+
+void discard() {
+  ringclamp.set(true);
+  pros::delay(500);
+  wallmech.set(true);
+  pros::delay(500);
+  ringclamp.set(false);
+  wallmech.set(false);
+  return;
+}
+
+void ringsensTask() {
+  if (allianceColor == 'R')  {
+    if (intakeColor == "blue") {
+      discard();
+    } 
+  }
+  else if (allianceColor == 'B')  {
+    if (intakeColor == "red") {
+      discard();
+    }
   }
 }
 
-void ringsensBlue() {
-  if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
-    ringclamp.set(true);
-    pros::delay(500);
-    wallmech.set(true);
-    pros::delay(500);
-    ringclamp.set(false);
-    wallmech.set(false);
-    return;
-  }
-}
+pros::Task ringsort(ringsensTask);

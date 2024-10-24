@@ -75,7 +75,8 @@ void move_forward(){
 
 void red_50WP(){
   //(might not work), ring sorting
-  ringsensRed();
+  char allianceColor = 'R';
+  
   //Get mogo and score 2 rings
   mogomech.set(false);
   chassis.pid_drive_set(-34_in, 75, true);
@@ -104,7 +105,8 @@ void red_50WP(){
 
 void red_4ring(){
   //(might not work), ring sorting
-  ringsensRed();
+  char allianceColor = 'R';
+
   //score on allaince stake
   chassis.pid_drive_set(-15_in, DRIVE_SPEED, false);
     chassis.pid_wait_until(-8_in);
@@ -153,7 +155,8 @@ void red_4ring(){
 
 void red_4greed(){
   //(might not work), ring sorting
-  ringsensRed();
+  char allianceColor = 'R';
+
   chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-28_in);
   mogomech.set(true);
@@ -229,7 +232,8 @@ void red_4greed(){
 
 void blue_50WP(){
   //(might not work), ring sorting
-  ringsensBlue();
+  char allianceColor = 'B';
+
   //Get mogo and score 2 rings
   mogomech.set(false);
   chassis.pid_drive_set(-35_in, 60, true);
@@ -259,7 +263,8 @@ void blue_50WP(){
 
 void blue_4ring(){
   //(might not work), ring sorting
-  ringsensBlue();
+  char allianceColor = 'B';
+
   //score on allaince stake
   chassis.pid_drive_set(-16_in, DRIVE_SPEED, false);
     chassis.pid_wait_until(-8_in);
@@ -308,7 +313,8 @@ void blue_4ring(){
 
 void blue_4greed(){
   //(might not work), ring sorting
-  ringsensBlue();
+  char allianceColor = 'B';
+
   chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-26.5_in);
   mogomech.set(true);
@@ -348,7 +354,8 @@ void blue_4greed(){
 
 void skills(){
   //(might not work), ring sorting
-  ringsensRed();
+  char allianceColor = 'R';
+
   chassis.pid_drive_set(-30_in, 60, false);
   chassis.pid_wait_until(-2_in);
   mogomech.set(true); //grab top left mogo

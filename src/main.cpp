@@ -2,6 +2,7 @@
 #include "EZ-Template/piston.hpp"
 #include "autons.hpp"
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
 
 //big money $_$
 /////
@@ -100,7 +101,7 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-
+  
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }
 

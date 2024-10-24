@@ -23,5 +23,5 @@ bool shift();
 
 //auton subsystems
 
-void ringsensRed();
-void ringsensBlue();
+void discard();
+void ringsensTask();
