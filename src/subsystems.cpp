@@ -24,18 +24,18 @@ void setWall() {
 }
 //temp code for test or something idk
 void setClamp() {
-  ringclamp.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2));
-  /*
+  //ringclamp.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2));
+  
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
-  while (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    if (ringsens.get_hue() < 240) {
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    if (((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) || ((ringsens.get_hue() < 240) && ((ringsens.get_hue() > 180)))) {
       ringclamp.set(true);
     }
   }
   if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     ringclamp.set(false);
   }
-  */
+  
 }
 
 bool shift() { 

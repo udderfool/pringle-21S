@@ -11,7 +11,7 @@ inline pros::MotorGroup intake({6, -4});
 inline ez::Piston mogomech('G');
 inline ez::Piston ringclamp('A');
 inline ez::Piston wallmech('B');
-inline pros::Optical ringsens(3);
+inline pros::Optical ringsens(8);
 // inline pros::adi::DigitalIn limit_switch('A');
 
 //Functions
