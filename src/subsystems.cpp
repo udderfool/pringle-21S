@@ -70,15 +70,8 @@ void discard() {
 }
 
 void ringsensTask() {
-  if (allianceColor == 'R')  {
-    if (intakeColor == "blue") {
+  if ((allianceColor == 'R' && intakeColor == "blue") || (allianceColor == 'B' && intakeColor == "red"))  {
       discard();
-    } 
-  }
-  else if (allianceColor == 'B')  {
-    if (intakeColor == "red") {
-      discard();
-    }
   }
 }
 
