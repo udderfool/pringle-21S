@@ -28,7 +28,7 @@ void setClamp() {
   
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    if (((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) || ((ringsens.get_hue() < 240) && ((ringsens.get_hue() > 180)))) {
+    if (((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) || ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180))) {
       ringclamp.set(true);
     }
   }
@@ -40,4 +40,30 @@ void setClamp() {
 
 bool shift() { 
   return master.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
+}
+
+//auton subsystems
+
+void ringsensRed() {
+  if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180)) {
+    ringclamp.set(true);
+    pros::delay(500);
+    wallmech.set(true);
+    pros::delay(500);
+    ringclamp.set(false);
+    wallmech.set(false);
+    return;
+  }
+}
+
+void ringsensBlue() {
+  if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
+    ringclamp.set(true);
+    pros::delay(500);
+    wallmech.set(true);
+    pros::delay(500);
+    ringclamp.set(false);
+    wallmech.set(false);
+    return;
+  }
 }

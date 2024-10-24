@@ -20,3 +20,8 @@ void setMogo();
 void setClamp();
 void setWall();
 bool shift();
+
+//auton subsystems
+
+void ringsensRed();
+void ringsensBlue();
