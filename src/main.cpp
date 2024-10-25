@@ -1,5 +1,4 @@
 #include "main.h"
-#include "EZ-Template/piston.hpp"
 #include "autons.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"

@@ -77,6 +77,14 @@ bool shift() {
 //variable changed during auton and driver to determine red/blue/no alliance selection
 char allianceColor = 'A';
 
+void redAssign() {
+  allianceColor = 'R';
+}
+
+void blueAssign() {
+  allianceColor = 'B';
+}
+
 void discard() {
   ringclamp.set(true);
   pros::delay(500);
