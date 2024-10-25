@@ -1,17 +1,39 @@
+#include "subsystems.hpp"
 #include "main.h"
+#include "pros/colors.hpp"
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
+#include "pros/screen.hpp"
+#include <string>
 
-string intakeColor = "neutral";
+std::string intakeColor = "neutral";
 
 void colorDetect() {
   if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
-    string intakeColor = "red";
+    intakeColor = "red";
   } else if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180)) {
-    string intakeColor = "blue";
+    intakeColor = "blue";
   } else {
-    string intakeColor = "neutral"; 
+    intakeColor = "neutral";
   }
 }
+
+pros::Task colordetection(colorDetect);
+
+void colorProbe() {
+  if (intakeColor == "red") {
+    pros::screen::set_pen(pros::Color::red);
+    pros::screen::fill_rect(0,0,400,200);
+  } else if (intakeColor == "blue") {
+    pros::screen::set_pen(pros::Color::blue);
+    pros::screen::fill_rect(0,0,400,200);
+  } else if (intakeColor == "neutral") {
+    pros::screen::set_pen(pros::Color::yellow);
+    pros::screen::fill_rect(0,0,400,200);
+  }
+}
+
+pros::Task colorprobing(colorProbe);
 
 void setIntake() {
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
@@ -28,16 +50,12 @@ void setMogo() {
 }
 
 void setWall() {
-  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-    wallmech.set(true);
-  } else {
-    wallmech.set(false);
-  }
+  wallmech.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
 }
 //temp code for test or something idk
 void setClamp() {
-  //ringclamp.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2));
-  
+  ringclamp.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+  /*
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     if (intakeColor == "red" || intakeColor == "blue") {
@@ -47,7 +65,7 @@ void setClamp() {
   if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     ringclamp.set(false);
   }
-  
+  */
 }
 
 bool shift() { 
@@ -66,7 +84,6 @@ void discard() {
   pros::delay(500);
   ringclamp.set(false);
   wallmech.set(false);
-  return;
 }
 
 void ringsensTask() {

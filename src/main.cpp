@@ -142,6 +142,8 @@ void opcontrol() {
 
     //ROBOT CODE HERE
     chassis.opcontrol_tank();  // Tank control
+    colorDetect();
+    colorProbe();
     setIntake();
     setMogo();
     setClamp();

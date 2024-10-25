@@ -15,6 +15,8 @@ inline pros::Optical ringsens(8);
 // inline pros::adi::DigitalIn limit_switch('A');
 
 //Functions
+void colorDetect();
+void colorProbe();
 void setIntake();
 void setMogo();
 void setClamp();
