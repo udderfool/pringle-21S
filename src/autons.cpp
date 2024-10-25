@@ -1,7 +1,7 @@
 #include "main.h"
 #include "pros/rtos.hpp"
 #include "subsystems.hpp"
-#include "subsystems.cpp"
+
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -75,7 +75,7 @@ void move_forward(){
 
 void red_50WP(){
   //(might not work), ring sorting
-  allianceColor = 'R';
+  char allianceColor = 'R';
   
   //Get mogo and score 2 rings
   mogomech.set(false);
@@ -105,7 +105,7 @@ void red_50WP(){
 
 void red_4ring(){
   //(might not work), ring sorting
-  allianceColor = 'R';
+  char allianceColor = 'R';
 
   //score on allaince stake
   chassis.pid_drive_set(-15_in, DRIVE_SPEED, false);
@@ -155,7 +155,7 @@ void red_4ring(){
 
 void red_4greed(){
   //(might not work), ring sorting
-  allianceColor = 'R';
+  char allianceColor = 'R';
 
   chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-28_in);
@@ -263,7 +263,7 @@ void blue_50WP(){
 
 void blue_4ring(){
   //(might not work), ring sorting
-  allianceColor = 'B';
+  char allianceColor = 'B';
 
   //score on allaince stake
   chassis.pid_drive_set(-16_in, DRIVE_SPEED, false);
@@ -313,7 +313,7 @@ void blue_4ring(){
 
 void blue_4greed(){
   //(might not work), ring sorting
-  allianceColor = 'B';
+  char allianceColor = 'B';
 
   chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-26.5_in);
@@ -354,7 +354,7 @@ void blue_4greed(){
 
 void skills(){
   //(might not work), ring sorting
-  allianceColor = 'R';
+  char allianceColor = 'R';
 
   chassis.pid_drive_set(-30_in, 60, false);
   chassis.pid_wait_until(-2_in);
