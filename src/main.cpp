@@ -2,6 +2,8 @@
 #include "autons.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
+#include "subsystems.hpp"
+#include "pros/screen.hpp"
 
 //big money $_$
 /////
@@ -28,6 +30,7 @@ ez::Drive chassis(
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
+  pros::screen::set_eraser(0x5abc03);
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
@@ -45,6 +48,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+      Auton("at-home testing for \nred auton", testautonRed),
+      Auton("at-home testing for \nblue auton", testautonBlue),
       Auton("red 4 ring wp", red_4ring),      
       Auton("blue four ring", blue_4ring),
       Auton("red 50% wp", red_50WP),
@@ -100,7 +105,7 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-  
+
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }
 
@@ -118,9 +123,14 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+  neutralAssign();
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
   chassis.drive_brake_set(driver_preference_brake);
+  pros::Task allianceprobing(allianceProbe);
+  pros::Task colordetection(colorDetect);
+  pros::Task colorProbing(colorProbe);
+  pros::Task ringsort(ringsensTask); 
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
@@ -141,8 +151,6 @@ void opcontrol() {
 
     //ROBOT CODE HERE
     chassis.opcontrol_tank();  // Tank control
-    colorDetect();
-    colorProbe();
     setIntake();
     setMogo();
     setClamp();

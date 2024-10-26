@@ -4,6 +4,9 @@
 
 extern Drive chassis;
 
+void testautonRed();
+void testautonBlue();
+
 void move_forward();
 void red_50WP();
 void red_4ring();
@@ -25,3 +28,5 @@ void combining_movements();
 void interfered_example();
 
 void default_constants();
+
+void tasks();

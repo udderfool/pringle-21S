@@ -7,8 +7,10 @@
 #include <string>
 
 std::string intakeColor = "neutral";
+char allianceColor = 'A';
 
 void colorDetect() {
+while(true) {
   if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
     intakeColor = "red";
   } else if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180)) {
@@ -16,24 +18,40 @@ void colorDetect() {
   } else {
     intakeColor = "neutral";
   }
-}
-
-pros::Task colordetection(colorDetect);
-
-void colorProbe() {
-  if (intakeColor == "red") {
-    pros::screen::set_pen(pros::Color::red);
-    pros::screen::fill_rect(0,0,400,200);
-  } else if (intakeColor == "blue") {
-    pros::screen::set_pen(pros::Color::blue);
-    pros::screen::fill_rect(0,0,400,200);
-  } else if (intakeColor == "neutral") {
-    pros::screen::set_pen(pros::Color::yellow);
-    pros::screen::fill_rect(0,0,400,200);
+  pros::delay(10);
   }
 }
 
-pros::Task colorprobing(colorProbe);
+void colorProbe() {
+while(true) {
+  if (intakeColor == "red") {
+    pros::screen::set_pen(pros::Color::orange_red);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 330,45, "ring: red   ");
+  } else if (intakeColor == "blue") {
+    pros::screen::set_pen(pros::Color::medium_blue);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 45, "ring: blue  ");
+  } else if (intakeColor == "neutral") {
+    pros::screen::set_pen(pros::Color::dark_olive_green);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 45, "ring: none  ");
+  }
+  pros::delay(10);
+  }
+}
+void allianceProbe() {
+while(true) {
+  if (allianceColor == 'R') {
+    pros::screen::set_pen(pros::Color::orange_red);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 290, 30, "alliance: red   ");
+  } else if (allianceColor == 'B') {
+    pros::screen::set_pen(pros::Color::medium_blue);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 290, 30, "alliance: blue  ");
+  } else if (allianceColor == 'A') {
+    pros::screen::set_pen(pros::Color::dark_olive_green);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 290, 30, "alliance: driver");
+  } 
+  pros::delay(10);
+  }
+}
 
 void setIntake() {
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
@@ -75,7 +93,6 @@ bool shift() {
 //auton subsystems
 
 //variable changed during auton and driver to determine red/blue/no alliance selection
-char allianceColor = 'A';
 
 void redAssign() {
   allianceColor = 'R';
@@ -85,19 +102,32 @@ void blueAssign() {
   allianceColor = 'B';
 }
 
+void neutralAssign() {
+  allianceColor = 'A';
+}
+
 void discard() {
+  pros::screen::set_pen(pros::Color::white_smoke);
+  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 60, "ring thrown!");
   ringclamp.set(true);
   pros::delay(500);
   wallmech.set(true);
   pros::delay(500);
   ringclamp.set(false);
   wallmech.set(false);
+  intake.move(127);
+  pros::delay(500);
+  intake.move(0);
+  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 60, "            ");
+  return;
 }
 
 void ringsensTask() {
+while(true) {
   if ((allianceColor == 'R' && intakeColor == "blue") || (allianceColor == 'B' && intakeColor == "red"))  {
       discard();
   }
+  pros::delay(10);
+  }
+  return;
 }
-
-pros::Task ringsort(ringsensTask);

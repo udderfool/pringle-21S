@@ -17,6 +17,7 @@ inline pros::Optical ringsens(8);
 //Functions
 void colorDetect();
 void colorProbe();
+void allianceProbe();
 void setIntake();
 void setMogo();
 void setClamp();
@@ -27,5 +28,6 @@ bool shift();
 
 void redAssign();
 void blueAssign();
+void neutralAssign();
 void discard();
 void ringsensTask();

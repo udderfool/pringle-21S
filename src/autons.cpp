@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include "subsystems.hpp"
 
@@ -6,6 +7,18 @@
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
 /////
+  /*pros::Task allianceprobing(allianceProbe);
+  pros::Task colordetection(colorDetect);
+  pros::Task colorProbing(colorProbe);
+  pros::Task ringsort(ringsensTask); */
+void tasks() { 
+  pros::Task allianceprobing(allianceProbe);
+  pros::Task colordetection(colorDetect);
+  pros::Task colorProbing(colorProbe);
+  pros::Task ringsort(ringsensTask); 
+  wallmech.set(true);
+}
+
 
 // These are out of 127
 const int DRIVE_SPEED = 127;
@@ -72,9 +85,25 @@ void move_forward(){
   chassis.pid_wait();
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
 }*/
+void testautonRed() { 
+  tasks();
+  redAssign();
+  intake.move(0);
+  pros::delay(10000);
+  intake.move(0);
+}
+
+void testautonBlue() { 
+  tasks();
+  blueAssign();
+  intake.move(0);
+  pros::delay(10000);
+  intake.move(0);
+}
 
 void red_50WP(){
   //(might not work), ring sorting
+  tasks();
   redAssign();
   
   //Get mogo and score 2 rings
@@ -85,7 +114,7 @@ void red_50WP(){
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_drive_set(22_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   //drop off mogo and touch mid
@@ -105,6 +134,7 @@ void red_50WP(){
 
 void red_4ring(){
   //(might not work), ring sorting
+  tasks();
   redAssign();
 
   //score on allaince stake
@@ -114,7 +144,7 @@ void red_4ring(){
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_wait();
   pros::delay(150);
   chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
@@ -155,13 +185,14 @@ void red_4ring(){
 
 void red_4greed(){
   //(might not work), ring sorting
+  tasks();
   redAssign();
 
   chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-28_in);
   mogomech.set(true);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_turn_set(90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
   chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
@@ -232,6 +263,7 @@ void red_4greed(){
 
 void blue_50WP(){
   //(might not work), ring sorting
+  tasks();
   blueAssign();
 
   //Get mogo and score 2 rings
@@ -242,7 +274,7 @@ void blue_50WP(){
   chassis.pid_wait();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   //drop off mogo and touch mid
@@ -263,6 +295,7 @@ void blue_50WP(){
 
 void blue_4ring(){
   //(might not work), ring sorting
+  tasks();
   blueAssign();
 
   //score on allaince stake
@@ -271,7 +304,7 @@ void blue_4ring(){
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   pros::delay(250);
   chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
   chassis.pid_wait();
@@ -313,13 +346,14 @@ void blue_4ring(){
 
 void blue_4greed(){
   //(might not work), ring sorting
+  tasks();
   blueAssign();
 
   chassis.pid_drive_set(-30_in, 75, true);
   chassis.pid_wait_until(-26.5_in);
   mogomech.set(true);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_turn_set(-90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
   chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
@@ -354,12 +388,13 @@ void blue_4greed(){
 
 void skills(){
   //(might not work), ring sorting
+  tasks();
   redAssign();
 
   chassis.pid_drive_set(-30_in, 60, false);
   chassis.pid_wait_until(-2_in);
   mogomech.set(true); //grab top left mogo
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_speed_max_set(127);
   chassis.pid_wait();
   chassis.pid_turn_set(-135_deg, TURN_SPEED);
@@ -385,7 +420,7 @@ void skills(){
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_drive_set(36_in, 100, true);
   chassis.pid_wait();
   chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
@@ -421,7 +456,7 @@ void skills(){
   chassis.pid_wait_until(-44_in);
   mogomech.set(true); //grab bottom left mogo
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   chassis.pid_turn_set(180_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(24_in, DRIVE_SPEED, false);
@@ -461,7 +496,7 @@ void skills(){
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
-  intake.move(127);
+  intake.move(-127);
   pros::delay(250);
   chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
 }
