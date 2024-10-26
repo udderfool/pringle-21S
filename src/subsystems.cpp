@@ -1,4 +1,7 @@
 #include "subsystems.hpp"
+#include "EZ-Template/util.hpp"
+#include "liblvgl/llemu.hpp"
+#include "liblvgl/widgets/lv_switch.h"
 #include "main.h"
 #include "pros/colors.hpp"
 #include "pros/misc.h"
@@ -106,17 +109,50 @@ void neutralAssign() {
   allianceColor = 'A';
 }
 
-void discard() {
+bool discardSwitch;
+
+void discardNormalSet() {
+  discardSwitch = false;
   pros::screen::set_pen(pros::Color::white_smoke);
-  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 60, "ring thrown!");
+  pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "normal discard");
+}
+
+void discardSafetySet() {
+  discardSwitch = true;
+  pros::screen::set_pen(pros::Color::white_smoke);
+  pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "safety discard");
+}
+
+void discard() {
+  if (discardSwitch != true) {
+  pros::screen::set_pen(pros::Color::white_smoke);
+  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
   ringclamp.set(true);
   pros::delay(500);
   wallmech.set(true);
   pros::delay(500);
   ringclamp.set(false);
   wallmech.set(false);
-  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 60, "            ");
+  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
   return;
+  } else if (discardSwitch == true) {
+    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
+    intake.move(20);
+    mogomech.set(false);
+    chassis.pid_drive_set(2_in, 90, false);
+    chassis.pid_wait_quick_chain();
+    chassis.pid_swing_relative_set(ez::LEFT_SWING, 45_deg, 90);
+    intake.move(-127);
+    chassis.pid_wait();
+    pros::delay(1000);
+    chassis.pid_swing_relative_set(ez::LEFT_SWING, -45_deg, 90);
+    chassis.pid_wait_quick_chain();
+    chassis.pid_drive_set(-2_in, 90, false);
+    chassis.pid_wait_quick_chain();
+    mogomech.set(true);
+    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
+    return;
+  }
 }
 
 void ringsensTask() {

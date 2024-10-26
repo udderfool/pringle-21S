@@ -11,10 +11,12 @@ void move_forward();
 void red_50WP();
 void red_4ring();
 void red_4greed();
+void red_6ring();
 
 void blue_50WP();
 void blue_4ring();
 void blue_4greed();
+void blue_6ring();
 
 void skills();
 

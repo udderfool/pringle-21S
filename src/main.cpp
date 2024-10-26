@@ -31,7 +31,7 @@ void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
   pros::screen::set_eraser(0x5abc03);
-
+  ringsens.set_led_pwm(50);
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
   // Configure your chassis controls
@@ -50,8 +50,10 @@ void initialize() {
   ez::as::auton_selector.autons_add({
       Auton("at-home testing for \nred auton", testautonRed),
       Auton("at-home testing for \nblue auton", testautonBlue),
+      Auton("red 6 ring no WP", red_6ring),
+      Auton("blue 6 ring no WP", blue_6ring),
       Auton("red 4 ring wp", red_4ring),      
-      Auton("blue four ring", blue_4ring),
+      Auton("blue 4 ring wp", blue_4ring),
       Auton("red 50% wp", red_50WP),
       Auton("blue 50% wp", blue_50WP),
       Auton("red 4 ring no WP", red_4greed),
@@ -131,6 +133,7 @@ void opcontrol() {
   pros::Task colordetection(colorDetect);
   pros::Task colorProbing(colorProbe);
   pros::Task ringsort(ringsensTask); 
+  pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "              ");
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
