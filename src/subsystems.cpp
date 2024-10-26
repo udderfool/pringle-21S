@@ -115,9 +115,6 @@ void discard() {
   pros::delay(500);
   ringclamp.set(false);
   wallmech.set(false);
-  intake.move(127);
-  pros::delay(500);
-  intake.move(0);
   pros::screen::print(pros::E_TEXT_MEDIUM, 330, 60, "            ");
   return;
 }
