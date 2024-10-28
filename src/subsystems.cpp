@@ -16,7 +16,7 @@ void colorDetect() {
 while(true) {
   if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
     intakeColor = "red";
-  } else if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 180)) {
+  } else if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 210)) {
     intakeColor = "blue";
   } else {
     intakeColor = "neutral";
@@ -133,23 +133,25 @@ void discard() {
   pros::delay(500);
   ringclamp.set(false);
   wallmech.set(false);
+  neutralAssign();
   pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
   return;
   } else if (discardSwitch == true) {
     pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
     intake.move(20);
     mogomech.set(false);
-    chassis.pid_drive_set(2_in, 90, false);
+    chassis.pid_drive_set(6_in, 90, false);
     chassis.pid_wait_quick_chain();
-    chassis.pid_swing_relative_set(ez::LEFT_SWING, 45_deg, 90);
+    chassis.pid_turn_relative_set(45_deg, 90);
     intake.move(-127);
     chassis.pid_wait();
-    pros::delay(1000);
-    chassis.pid_swing_relative_set(ez::LEFT_SWING, -45_deg, 90);
+    pros::delay(500);
+    chassis.pid_turn_relative_set(-45_deg, 90);
     chassis.pid_wait_quick_chain();
-    chassis.pid_drive_set(-2_in, 90, false);
-    chassis.pid_wait_quick_chain();
+    chassis.pid_drive_set(-7_in, 90, false);
+    chassis.pid_wait_until(-6_in);
     mogomech.set(true);
+    neutralAssign();
     pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
     return;
   }

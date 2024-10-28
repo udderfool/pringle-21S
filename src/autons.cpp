@@ -7,16 +7,12 @@
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
 /////
-  /*pros::Task allianceprobing(allianceProbe);
-  pros::Task colordetection(colorDetect);
-  pros::Task colorProbing(colorProbe);
-  pros::Task ringsort(ringsensTask); */
+  
 void tasks() { 
   pros::Task allianceprobing(allianceProbe);
   pros::Task colordetection(colorDetect);
   pros::Task colorProbing(colorProbe);
   pros::Task ringsort(ringsensTask); 
-  wallmech.set(true);
 }
 
 
@@ -89,24 +85,21 @@ void testautonRed() {
   tasks();
   redAssign();
   discardNormalSet();
-  intake.move(0);
-  pros::delay(10000);
-  intake.move(0);
+  intake.move(-127);
+  pros::delay(100000);
+  mogomech.set(true);
 }
 
 void testautonBlue() { 
   tasks();
   blueAssign();
   discardSafetySet();
-  intake.move(0);
-  pros::delay(10000);
-  intake.move(0);
+  pros::delay(100000);
+  mogomech.set(true);
 }
 
 void red_50WP(){
   //(might not work), ring sorting
-  tasks();
-  redAssign();
   
   //Get mogo and score 2 rings
   mogomech.set(false);
@@ -132,13 +125,12 @@ void red_50WP(){
   intake.move(0);
   wallmech.set(true);
   chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  neutralAssign();
   chassis.pid_wait();
 }
 
 void red_4ring(){
   //(might not work), ring sorting
-  tasks();
-  redAssign();
 
   //score on allaince stake
   chassis.pid_drive_set(-15_in, DRIVE_SPEED, false);
@@ -184,24 +176,21 @@ void red_4ring(){
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
   chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  neutralAssign();
   chassis.pid_wait();
 }
 
 void red_4greed(){
   //(might not work), ring sorting
-  tasks();
-  redAssign();
 
-  chassis.pid_drive_set(-30_in, 75, true);
-  chassis.pid_wait_until(-28_in);
+  chassis.pid_drive_set(-30_in, 60, true);
+  chassis.pid_wait_until(-27.5_in);
   mogomech.set(true);
   chassis.pid_wait();
   intake.move(-127);
   chassis.pid_turn_set(90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
-  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-  chassis.pid_drive_set(-1_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
@@ -224,29 +213,27 @@ void red_4greed(){
   chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(36_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
 void red_6ring() {
   tasks();
-  redAssign();
   
-  chassis.pid_drive_set(-30_in, 75, true);
-  chassis.pid_wait_until(-28_in);
+  chassis.pid_drive_set(-30_in, 60, true);
+  chassis.pid_wait_until(-27_in);
   mogomech.set(true);
   chassis.pid_wait();
   intake.move(-127);
   chassis.pid_turn_set(90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
-  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_drive_set(-5_in, DRIVE_SPEED, false);
-  chassis.pid_wait();
-  chassis.pid_turn_set(20_deg, TURN_SPEED);
+  chassis.pid_turn_set(23_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   discardSafetySet();
-  chassis.pid_drive_set(40_in, DRIVE_SPEED, true);
+  redAssign();
+  chassis.pid_drive_set(34_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   pros::delay(500);
   chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
@@ -263,23 +250,25 @@ void red_6ring() {
   pros::delay(500);
   chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(190_deg, TURN_SPEED);
+  chassis.pid_turn_set(185_deg, TURN_SPEED);
   chassis.pid_wait();
+  redAssign();
   discardNormalSet();
-  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_drive_set(-4_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(225_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(4_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, false);
   chassis.pid_wait();
-  chassis.pid_drive_set(-4, DRIVE_SPEED, false);
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  neutralAssign();
   chassis.pid_wait();
 }
 
@@ -323,8 +312,6 @@ void red_6ring() {
 
 void blue_50WP(){
   //(might not work), ring sorting
-  tasks();
-  blueAssign();
 
   //Get mogo and score 2 rings
   mogomech.set(false);
@@ -351,13 +338,12 @@ void blue_50WP(){
   }
   wallmech.set(true);
   chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  neutralAssign();
   chassis.pid_wait();
 }
 
 void blue_4ring(){
   //(might not work), ring sorting
-  tasks();
-  blueAssign();
 
   //score on allaince stake
   chassis.pid_drive_set(-16_in, DRIVE_SPEED, false);
@@ -403,27 +389,24 @@ void blue_4ring(){
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
   chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  neutralAssign();
   chassis.pid_wait();
 }
 
 void blue_4greed(){
-  //(might not work), ring sorting
-  tasks();
-  blueAssign();
 
-  chassis.pid_drive_set(-30_in, 75, true);
-  chassis.pid_wait_until(-26.5_in);
+  chassis.pid_drive_set(-30_in, 60, true);
+  chassis.pid_wait_until(-27.5_in);
   mogomech.set(true);
   chassis.pid_wait();
   intake.move(-127);
   chassis.pid_turn_set(-90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
-  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-  chassis.pid_drive_set(-1_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
+  intake.move(-127);
   chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   pros::delay(500);
@@ -443,7 +426,8 @@ void blue_4greed(){
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  intake.move(-127);
+  chassis.pid_drive_set(40_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 
@@ -458,9 +442,7 @@ void blue_6ring() {
   intake.move(-127);
   chassis.pid_turn_set(-90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
-  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-  chassis.pid_drive_set(-1_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-20_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
@@ -484,8 +466,9 @@ void blue_6ring() {
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(-190_deg, TURN_SPEED);
   chassis.pid_wait();
+  redAssign();
   discardNormalSet();
-  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(36_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_drive_set(-4_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
@@ -499,15 +482,13 @@ void blue_6ring() {
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
   chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
+  neutralAssign();
   chassis.pid_wait();
 }
-
+     
 //SKILLS
 
 void skills(){
-  //(might not work), ring sorting
-  tasks();
-  redAssign();
 
   chassis.pid_drive_set(-30_in, 60, false);
   chassis.pid_wait_until(-2_in);

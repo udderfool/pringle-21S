@@ -52,14 +52,14 @@ void initialize() {
       Auton("at-home testing for \nblue auton", testautonBlue),
       Auton("red 6 ring no WP", red_6ring),
       Auton("blue 6 ring no WP", blue_6ring),
-      Auton("red 4 ring wp", red_4ring),      
-      Auton("blue 4 ring wp", blue_4ring),
+      Auton("red 4 ring wp \n(DO NOT RUN)", red_4ring),      
+      Auton("blue 4 ring wp \n(DO NOT RUN)", blue_4ring),
       Auton("red 50% wp", red_50WP),
       Auton("blue 50% wp", blue_50WP),
       Auton("red 4 ring no WP", red_4greed),
       Auton("blue 4 ring no WP", blue_4greed),
       Auton("Move forward", move_forward),
-      Auton("skills", skills)
+      Auton("skills", skills),
       
   });
 
@@ -134,6 +134,7 @@ void opcontrol() {
   pros::Task colorProbing(colorProbe);
   pros::Task ringsort(ringsensTask); 
   pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "              ");
+  
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
