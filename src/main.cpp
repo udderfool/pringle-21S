@@ -4,6 +4,7 @@
 #include "pros/rtos.hpp"
 #include "subsystems.hpp"
 #include "pros/screen.hpp"
+#include "subsystems_auton.hpp"
 
 //big money $_$
 /////
@@ -129,6 +130,8 @@ void opcontrol() {
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
   chassis.drive_brake_set(driver_preference_brake);
+
+  //auton debug tasks
   pros::Task allianceprobing(allianceProbe);
   pros::Task colordetection(colorDetect);
   pros::Task colorProbing(colorProbe);

@@ -23,13 +23,3 @@ void setMogo();
 void setClamp();
 void setWall();
 bool shift();
-
-//auton subsystems
-
-void redAssign();
-void blueAssign();
-void neutralAssign();
-void discard();
-void ringsensTask();
-void discardSafetySet();
-void discardNormalSet();
