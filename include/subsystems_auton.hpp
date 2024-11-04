@@ -3,10 +3,17 @@
 #include "api.h"
 #include "EZ-Template/api.hpp"
 
+
+//passive (running in driver and auton)
+void colorDetect();
+void colorProbe();
+void allianceProbe();
+void ringsensTask();
+
+//auton functions
 void redAssign();
 void blueAssign();
-void neutralAssign();
+void neutralAssign(); //applied during driver and during certain sections of auton- stops discard code from triggering
 void discard();
-void ringsensTask();
 void discardSafetySet();
 void discardNormalSet();

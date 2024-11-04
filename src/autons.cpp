@@ -2,6 +2,7 @@
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include "subsystems.hpp"
+#include "subsystems_auton.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
