@@ -5,6 +5,7 @@
 #include "subsystems.hpp"
 #include "pros/screen.hpp"
 #include "subsystems_auton.hpp"
+#include "brainui.hpp"
 
 //big money $_$
 /////
@@ -31,7 +32,6 @@ ez::Drive chassis(
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
-  pros::screen::set_eraser(0x5abc03);
   ringsens.set_led_pwm(50);
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
@@ -66,7 +66,8 @@ void initialize() {
 
   // Initialize chassis and auton selector
   chassis.initialize();
-  ez::as::initialize();
+  screeninit();
+  //pros::Task posnegsw(switches);
   master.rumble(".");
 }
 
@@ -125,18 +126,15 @@ void autonomous() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
 void opcontrol() {
   neutralAssign();
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
   chassis.drive_brake_set(driver_preference_brake);
 
-  //auton debug tasks
-  pros::Task allianceprobing(allianceProbe);
+  //ui code
   pros::Task colordetection(colorDetect);
-  pros::Task colorProbing(colorProbe);
-  pros::Task ringsort(ringsensTask); 
-  pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "              ");
   
   while (true) {
     // PID Tuner
