@@ -67,7 +67,6 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   screeninit();
-  //pros::Task posnegsw(switches);
   master.rumble(".");
 }
 

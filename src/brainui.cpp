@@ -22,27 +22,27 @@
 #include "pros/rtos.hpp"
 #include "pros/screen.h"
 #include "pros/screen.hpp"
+#include <cstdint>
 #include <cstdio>
 #include <string>
 #include <vector>
-#include <tuple>
 #include "subsystems_auton.hpp"
 #include "EZ-Template/auton.hpp"
 #include "EZ-Template/auton_selector.hpp"
 
-std::vector<Auton> jasDESC = {
-      Auton("at-home testing for \nred auton", testautonRed),
-      Auton("at-home testing for \nblue auton", testautonBlue),
-      Auton("red 6 ring no WP", red_6ring),
-      Auton("blue 6 ring no WP", blue_6ring),
-      Auton("red 4 ring wp \n(DO NOT RUN)", red_4ring),      
-      Auton("blue 4 ring wp \n(DO NOT RUN)", blue_4ring),
-      Auton("red 50% wp", red_50WP),
-      Auton("blue 50% wp", blue_50WP),
-      Auton("red 4 ring no WP", red_4greed),
-      Auton("blue 4 ring no WP", blue_4greed),
-      Auton("Move forward", move_forward),
-      Auton("skills", skills),
+std::vector<std::string> jasDESC = {
+      "at-home testing for \nred auton",
+      "at-home testing for \nblue auton",
+      "red 6 ring no WP",
+      "blue 6 ring no WP",
+      "red 4 ring wp \n(DO NOT RUN)",  
+      "blue 4 ring wp \n(DO NOT RUN)",
+      "red 50% wp",
+      "blue 50% wp",
+      "red 4 ring no WP",
+      "blue 4 ring no WP",
+      "Move forward",
+      "skills"
       };
 
 std::vector<Auton> jasNAME = {
@@ -60,7 +60,6 @@ std::vector<Auton> jasNAME = {
       Auton("skills", skills),
       };
 
-
 int j = 0;
 
 lv_obj_t * overlay = lv_img_create(lv_scr_act());
@@ -77,6 +76,47 @@ lv_obj_t * selectedAuton = lv_label_create(lv_scr_act());
 lv_obj_t * selectedAutonbox = lv_obj_create(lv_scr_act());
 lv_obj_t * autondesc = lv_label_create(lv_scr_act());
 
+    static void jasassign(lv_event_t * e) {
+    //fix this, this assigns autons to the vector. right now it is doing that but its not erasing the old, and its being funny
+    //also the vector isnt being cleared properly or something and its giving a prefetch error
+    lv_obj_has_state(posneg, LV_STATE_CHECKED) ? (lv_obj_has_state(redblu, LV_STATE_CHECKED) ? 
+    jasNAME.clear(), jasDESC.clear(),
+    jasNAME.push_back(Auton("blue_50WP", blue_50WP)),
+    jasNAME.push_back(Auton("testautonBlue", testautonBlue)),
+    jasNAME.push_back(Auton("move_forward", move_forward)),
+
+    jasDESC.push_back("blue 50% wp"),
+    jasDESC.push_back("at-home testing for \nblue auton"),
+    jasDESC.push_back("move_forward")
+    : 
+    jasNAME.clear(), jasDESC.clear(),
+    jasNAME.push_back(Auton("red_50WP", red_50WP)),
+    jasNAME.push_back(Auton("testautonRed", testautonRed)),
+    jasNAME.push_back(Auton("move_forward", move_forward)),
+
+    jasDESC.push_back("red 50% wp"),
+    jasDESC.push_back("at-home testing for \nred auton"),
+    jasDESC.push_back("move_forward")
+    ):
+    (lv_obj_has_state(redblu, LV_STATE_CHECKED) ? 
+    jasNAME.clear(), jasDESC.clear(),
+    jasNAME.push_back(Auton("testautonBlue", testautonBlue)),
+    jasNAME.push_back(Auton("move_forward", move_forward)),
+    
+    jasDESC.push_back("at-home testing for \nblue auton"),
+    jasDESC.push_back("move_forward")
+    : 
+    jasNAME.clear(), jasDESC.clear(),
+    jasDESC.push_back("at-home testing for \nred auton"),
+    jasDESC.push_back("move_forward")
+    );
+    //jasNAME.shrink_to_fit(), jasDESC.shrink_to_fit();
+        j = 0;
+        lv_table_set_cell_value(jauton, 0, 0, ((jasNAME[j].Name).c_str()));
+        lv_table_set_cell_value(jauton, 1, 0, ((jasNAME[j+1].Name).c_str()));
+        lv_table_set_cell_value(jauton, 2, 0, ((jasNAME[j+2].Name).c_str()));
+        lv_table_set_cell_value(jauton, 3, 0, ((jasNAME[j+3].Name).c_str()));
+    }
     static void switches(lv_event_t * e) {
         if(lv_obj_has_state(posneg, LV_STATE_CHECKED)) {
             lv_obj_set_style_bg_color(posind, lv_color_hex(0xdb8826), LV_PART_MAIN);
@@ -93,10 +133,32 @@ lv_obj_t * autondesc = lv_label_create(lv_scr_act());
         }
     }
 
-void updownbtn() {
-}
+    static void updownbtn(lv_event_t * e) {
+        if(lv_obj_has_state(autonselectup, LV_EVENT_CLICKED)) {
+            j == 0 ? j = jasNAME.size()-4: (j > 4 ? j = (j-4)%jasNAME.size() : j = 0);
+        } else if(lv_obj_has_state(autonselectdown, LV_EVENT_CLICKED)) {
+            j = (j+4)%jasNAME.size();
+        }   lv_table_set_cell_value(jauton, 0, 0, ((jasNAME[j].Name).c_str()));
+            lv_table_set_cell_value(jauton, 1, 0, ((jasNAME[j+1].Name).c_str()));
+            lv_table_set_cell_value(jauton, 2, 0, ((jasNAME[j+2].Name).c_str()));
+            lv_table_set_cell_value(jauton, 3, 0, ((jasNAME[j+3].Name).c_str()));
 
+    }
+
+    static void selectauton(lv_event_t * e) {
+        uint16_t row, col;
+        lv_table_get_selected_cell(jauton, &row, &col);
+        row == 0 ? lv_label_set_text(selectedAuton, ((jasDESC[j]).c_str())) :
+        row == 1 ? lv_label_set_text(selectedAuton, ((jasDESC[j+1]).c_str())) :
+        row == 2 ? lv_label_set_text(selectedAuton, ((jasDESC[j+2]).c_str())) :
+        row == 3 ? lv_label_set_text(selectedAuton, ((jasDESC[j+3]).c_str())) :
+        lv_label_set_text(selectedAuton, "No auton selected");
+    }
+
+lv_event_cb_t autonpage = updownbtn;
 lv_event_cb_t rbpnswitches = switches;
+lv_event_cb_t autontouch = selectauton;
+lv_event_cb_t autonsort = jasassign;
 
 
 
@@ -108,24 +170,21 @@ void screeninit(){
     lv_style_set_text_color(&style, lv_color_hex(0xe3c5ff));
     lv_style_set_bg_color(&style, lv_color_hex(0x100718));
 
-    /*static lv_style_t stylebtn;
+    static lv_style_t stylebtn;
     lv_style_init(&stylebtn);
     lv_style_set_border_width(&stylebtn, 2);
     lv_style_set_radius(&stylebtn, 6);
-    lv_style_set_text_color(&style, lv_color_hex(0x100718));
     lv_style_set_border_color(&stylebtn, lv_color_hex(0x100718));
-    lv_style_set_bg_color(&stylebtn, lv_color_hex(0xe3c5ff));*/
+    lv_style_set_bg_color(&stylebtn, lv_color_hex(0xe3c5ff));
 
     pros::screen::set_pen(0xe3c5ff);
     pros::screen::set_eraser(0x15171a); 
-    pros::delay(20);
-    pros::screen::draw_rect(0, 0, 480, 240);
         lv_img_set_src(overlay, &brainuioverlay);
         lv_obj_move_foreground(overlay);
         lv_obj_set_size(autonselectup, 11, 58);
         lv_obj_set_pos(autonselectup, 242, 50);
-        lv_obj_add_style(autonselectup, &style, LV_PART_MAIN);
-        lv_obj_add_style(autonselectdown, &style, LV_PART_MAIN);
+        lv_obj_add_style(autonselectup, &stylebtn, LV_PART_MAIN);
+        lv_obj_add_style(autonselectdown, &stylebtn, LV_PART_MAIN);
         lv_obj_set_style_bg_color(autonselectup, lv_color_hex(0xe3c5ff), LV_PART_MAIN);
         lv_obj_set_size(autonselectdown, 11, 58);
         lv_obj_set_pos(autonselectdown, 242, 118);
@@ -178,6 +237,11 @@ void screeninit(){
         lv_obj_add_style(redbluind, &style, LV_PART_MAIN);
         lv_obj_add_event_cb(posneg, switches, LV_EVENT_ALL, NULL);
         lv_obj_add_event_cb(redblu, switches, LV_EVENT_ALL, NULL);
+        lv_obj_add_event_cb(posneg, autonsort, LV_EVENT_ALL, NULL);
+        lv_obj_add_event_cb(redblu, autonsort, LV_EVENT_ALL, NULL);
+        lv_obj_add_event_cb(autonselectup, autonpage, LV_EVENT_CLICKED, NULL);
+        lv_obj_add_event_cb(autonselectdown, autonpage, LV_EVENT_CLICKED, NULL);
+        lv_obj_add_event_cb(jauton, autontouch, LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_add_style(autondesc, &style, LV_PART_MAIN);
     lv_obj_set_pos(autondesc, 7, 45);
     lv_label_set_text(autondesc, "auton descriptions:");

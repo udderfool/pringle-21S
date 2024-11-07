@@ -1,6 +1,5 @@
 #include "subsystems_auton.hpp"
 #include "EZ-Template/util.hpp"
-#include "liblvgl/llemu.hpp"
 #include "liblvgl/widgets/lv_switch.h"
 #include "main.h"
 #include "pros/colors.hpp"
