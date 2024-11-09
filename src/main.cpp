@@ -1,4 +1,5 @@
 #include "main.h"
+#include "EZ-Template/auton_selector.hpp"
 #include "autons.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
@@ -49,21 +50,23 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("at-home testing for \nred auton", testautonRed),
-      Auton("at-home testing for \nblue auton", testautonBlue),
-      Auton("red 6 ring no WP", red_6ring),
-      Auton("blue 6 ring no WP", blue_6ring),
-      Auton("red 4 ring wp \n(DO NOT RUN)", red_4ring),      
-      Auton("blue 4 ring wp \n(DO NOT RUN)", blue_4ring),
-      Auton("red 50% wp", red_50WP),
-      Auton("blue 50% wp", blue_50WP),
-      Auton("red 4 ring no WP", red_4greed),
-      Auton("blue 4 ring no WP", blue_4greed),
-      Auton("Move forward", move_forward),
+    //blue positive
+      Auton("blue_50WP", blue_50WP),
+      Auton("testautonBlue", testautonBlue),
+      Auton("move_forward", move_forward),
       Auton("skills", skills),
-      
+    //red positive
+      Auton("red_50WP", red_50WP),
+      Auton("testautonRed", testautonRed),
+    //blue negative
+      Auton("blue_4greed", blue_4greed),
+      Auton("blue_4ring", blue_4ring),
+      Auton("blue_6ring", blue_6ring),
+    //red negative
+      Auton("red_4greed", red_4greed),
+      Auton("red_4ring", red_4ring),
+      Auton("red_6ring", red_6ring),
   });
-
   // Initialize chassis and auton selector
   chassis.initialize();
   screeninit();
@@ -131,10 +134,12 @@ void opcontrol() {
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
   chassis.drive_brake_set(driver_preference_brake);
-
-  //ui code
-  pros::Task colordetection(colorDetect);
   
+  //ui code
+    pros::Task colordetection(colorDetect);
+    pros::Task colorProbing(colorProbe);
+    //pros::Task allianceprobing(allianceProbe);
+
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp

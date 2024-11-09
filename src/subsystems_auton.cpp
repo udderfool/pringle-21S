@@ -1,5 +1,8 @@
 #include "subsystems_auton.hpp"
 #include "EZ-Template/util.hpp"
+#include "liblvgl/core/lv_obj.h"
+#include "liblvgl/core/lv_obj_pos.h"
+#include "liblvgl/lv_api_map.h"
 #include "liblvgl/widgets/lv_switch.h"
 #include "main.h"
 #include "pros/colors.hpp"
@@ -11,7 +14,7 @@
 std::string intakeColor = "neutral";
 char allianceColor = 'A';
 bool discardSwitch;
-
+lv_obj_t * ringind= lv_obj_create(lv_scr_act());
 
 void colorDetect() {
 while(true) {
@@ -27,19 +30,23 @@ while(true) {
 }
 
 void colorProbe() {
+    static lv_style_t stylering;
+    lv_style_init(&stylering);
+    lv_style_set_border_width(&stylering, 0);
+    lv_style_set_radius(&stylering, 0);
+    lv_obj_set_pos(ringind, 345, 3);
+    lv_obj_set_size(ringind, 117, 117);
 while(true) {
   if (intakeColor == "red") {
-    pros::screen::set_pen(pros::Color::orange_red);
-    pros::screen::print(pros::E_TEXT_MEDIUM, 330,45, "ring: red   ");
+    lv_obj_set_style_bg_color(ringind, lv_color_hex(0xff2a00), LV_PART_MAIN);
   } else if (intakeColor == "blue") {
-    pros::screen::set_pen(pros::Color::medium_blue);
-    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 45, "ring: blue  ");
+    lv_obj_set_style_bg_color(ringind, lv_color_hex(0x0066cc), LV_PART_MAIN);
   } else if (intakeColor == "neutral") {
-    pros::screen::set_pen(pros::Color::dark_olive_green);
-    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 45, "ring: none  ");
+    lv_obj_set_style_bg_color(ringind, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
   }
   pros::delay(10);
   }
+  lv_obj_move_background(ringind);
 }
 void allianceProbe() {
 while(true) {
