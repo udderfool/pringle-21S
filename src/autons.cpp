@@ -125,7 +125,7 @@ void red_50WP(){
   }
   intake.move(0);
   wallmech.set(true);
-  chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
 }
@@ -176,7 +176,7 @@ void red_4ring(){
   chassis.pid_turn_set(180_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
 }
@@ -191,31 +191,29 @@ void red_4greed(){
   intake.move(-127);
   chassis.pid_turn_set(90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(27_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
+  chassis.pid_turn_relative_set(95_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   pros::delay(500);
-  chassis.pid_drive_set(-13_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
+  chassis.pid_turn_set(225_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(16_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
   chassis.pid_wait();
   pros::delay(500);
-  chassis.pid_drive_set(-4_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
+  chassis.pid_turn_relative_set(45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  chassis.pid_drive_set(36_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
+  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
+  neutralAssign();
+  chassis.pid_wait();   
 }
 
 void red_6ring() {
@@ -338,7 +336,7 @@ void blue_50WP(){
     return;
   }
   wallmech.set(true);
-  chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
 }
@@ -389,7 +387,7 @@ void blue_4ring(){
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
 }
@@ -403,32 +401,26 @@ void blue_4greed(){
   intake.move(-127);
   chassis.pid_turn_set(-90_deg, TURN_SPEED); //turn to rings
   chassis.pid_wait();
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
+  chassis.pid_turn_relative_set(-95_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  intake.move(-127);
-  chassis.pid_drive_set(14_in, DRIVE_SPEED, false);
   chassis.pid_wait();
-  pros::delay(500);
-  chassis.pid_drive_set(-13_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(90_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6_in, DRIVE_SPEED, false);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(18_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   pros::delay(500);
-  chassis.pid_drive_set(-4_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-12, DRIVE_SPEED, false);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
+  chassis.pid_turn_set(-225_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(12_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-8, DRIVE_SPEED, false);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_relative_set(-45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   wallmech.set(true);
-  intake.move(-127);
-  chassis.pid_drive_set(40_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 

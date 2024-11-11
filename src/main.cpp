@@ -70,6 +70,8 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   screeninit();
+  pros::Task colordetection(colorDetect);
+  pros::Task colorProbing(colorProbe);
   master.rumble(".");
 }
 
@@ -135,10 +137,6 @@ void opcontrol() {
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
   chassis.drive_brake_set(driver_preference_brake);
   
-  //ui code
-    pros::Task colordetection(colorDetect);
-    pros::Task colorProbing(colorProbe);
-    //pros::Task allianceprobing(allianceProbe);
 
   while (true) {
     // PID Tuner
