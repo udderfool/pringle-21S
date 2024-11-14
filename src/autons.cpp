@@ -124,7 +124,7 @@ void red_50WP(){
     return;
   }
   intake.move(0);
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
@@ -175,7 +175,7 @@ void red_4ring(){
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(180_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
@@ -210,7 +210,7 @@ void red_4greed(){
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();   
@@ -265,7 +265,7 @@ void red_6ring() {
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
@@ -335,7 +335,7 @@ void blue_50WP(){
    if (!chassis.interfered) {
     return;
   }
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
@@ -386,7 +386,7 @@ void blue_4ring(){
   chassis.pid_wait();
   chassis.pid_turn_relative_set(-90_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();
@@ -419,7 +419,7 @@ void blue_4greed(){
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(-45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
@@ -473,7 +473,7 @@ void blue_6ring() {
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_relative_set(-45_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
-  wallmech.set(true);
+  //wallmech.set(true);
   chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
   neutralAssign();
   chassis.pid_wait();

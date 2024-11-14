@@ -25,20 +25,24 @@ void setMogo() {
 }
 
 void setWall() {
-  wallmech.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
+  if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+    wallmech.move_absolute(360, 90);
+  } else {
+    wallmech.move_absolute(0, 90);
+  }
 }
 //temp code for test or something idk
-void setClamp() {
-  ringclamp.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+void setRedirect() {
+  redirect.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
   /*
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     if (intakeColor == "red" || intakeColor == "blue") {
-      ringclamp.set(true);
+      redirect.set(true);
     }
   }
   if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    ringclamp.set(false);
+    redirect.set(false);
   }
   */
 }

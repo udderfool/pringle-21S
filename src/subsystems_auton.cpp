@@ -94,12 +94,9 @@ void discard() {
   if (discardSwitch != true) {
   pros::screen::set_pen(pros::Color::white_smoke);
   pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
-  ringclamp.set(true);
+  redirect.set(true);
   pros::delay(500);
-  wallmech.set(true);
-  pros::delay(500);
-  ringclamp.set(false);
-  wallmech.set(false);
+  redirect.set(false);
   neutralAssign();
   pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
   return;
