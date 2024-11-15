@@ -10,7 +10,7 @@
 inline pros::MotorGroup intake({6, 4});
 inline pros::MotorGroup wallmech({19});
 inline ez::Piston mogomech('G');
-inline ez::Piston redirect('A');
+inline ez::Piston indexer('A');
 inline pros::Optical ringsens(8);
 // inline pros::adi::DigitalIn limit_switch('A');
 

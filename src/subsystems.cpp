@@ -33,16 +33,16 @@ void setWall() {
 }
 //temp code for test or something idk
 void setRedirect() {
-  redirect.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+  indexer.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
   /*
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     if (intakeColor == "red" || intakeColor == "blue") {
-      redirect.set(true);
+      indexer.set(true);
     }
   }
   if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    redirect.set(false);
+    indexer.set(false);
   }
   */
 }
