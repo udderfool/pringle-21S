@@ -18,9 +18,10 @@ lv_obj_t * ringind= lv_obj_create(lv_scr_act());
 
 void colorDetect() {
 while(true) {
-  if ((ringsens.get_hue() < 30) && (ringsens.get_hue() > 1)) {
+  ringsens.set_led_pwm(50);
+  if ((ringsens.get_hue() < 10) && (ringsens.get_hue() > 0)) {
     intakeColor = "red";
-  } else if ((ringsens.get_hue() < 240) && (ringsens.get_hue() > 210)) {
+  } else if ((ringsens.get_hue() < 225) && (ringsens.get_hue() > 210)) {
     intakeColor = "blue";
   } else {
     intakeColor = "neutral";
@@ -80,28 +81,28 @@ void neutralAssign() {
 
 void discardNormalSet() {
   discardSwitch = false;
-  pros::screen::set_pen(pros::Color::white_smoke);
-  pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "normal discard");
+  //pros::screen::set_pen(pros::Color::white_smoke);
+  //pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "normal discard");
 }
 
 void discardSafetySet() {
   discardSwitch = true;
-  pros::screen::set_pen(pros::Color::white_smoke);
-  pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "safety discard");
+  //pros::screen::set_pen(pros::Color::white_smoke);
+  //pros::screen::print(pros::E_TEXT_MEDIUM, 310, 60, "safety discard");
 }
 
 void discard() {
   if (discardSwitch != true) {
-  pros::screen::set_pen(pros::Color::white_smoke);
-  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
-  redirect.set(true);
+  //pros::screen::set_pen(pros::Color::white_smoke);
+  //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
+  indexer.set(true);
   pros::delay(500);
-  redirect.set(false);
+  indexer.set(false);
   neutralAssign();
-  pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
+  //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
   return;
   } else if (discardSwitch == true) {
-    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
+    //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
     mogomech.set(false);
     intake.move(20);
     pros::delay(500);
@@ -110,7 +111,7 @@ void discard() {
     mogomech.set(true);
     intake.move(0);
     neutralAssign();
-    pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
+    //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
     return;
   }
 }

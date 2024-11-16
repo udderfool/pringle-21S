@@ -30,35 +30,22 @@
 #include <cstdint>
 #include <cstdio>
 #include <iterator>
+#include <optional>
 #include <string>
 #include <vector>
 #include "EZ-Template/auton.hpp"
 
 using namespace jas;
 
-std::vector<jas::jasauton> jautonselect = {
-    //blue positive
-      jasauton("blue_50WP", "blue 50% wp", blue_50WP),
-      jasauton("testautonBlue", "at-home testing for \nblue auton", testautonBlue),
-    //red positive
-      jasauton("red_50WP", "red 50% wp", red_50WP),
-      jasauton("testautonRed", "at-home testing for \nred auton", testautonRed),
-    //blue negative
-      jasauton("blue_4greed", "blue 4 ring no WP", blue_4greed),
-      jasauton("blue_4ring", "blue 4 ring wp \n(DO NOT RUN)", blue_4ring),
-      jasauton("blue_6ring", "blue 6 ring no WP", blue_6ring),
-    //red negative
-      jasauton("red_4greed", "red 4 ring no WP", red_4greed),
-      jasauton("red_4ring", "red 4 ring wp \n(DO NOT RUN)",  red_4ring),
-      jasauton("red_6ring", "red 6 ring no WP", red_6ring),
-      jasauton("move_forward", "Move forward", move_forward),
-      jasauton("skills", "skills (unfinished, unreliable)", skills),
-};//temporary shit
-
 int page = 0;
 int j = 0;
-int autontable = 0;
 int jassize;
+jas::jautonselector j_auton_selector;
+jas::uisetting uivalues;
+bool noselection;
+void jas::jautonselector::jautonRun() {
+    jasautontable[autontable].autonCall();
+}
 
 lv_obj_t * overlay = lv_img_create(lv_scr_act());
 LV_IMG_DECLARE(brainuioverlay);
@@ -80,14 +67,14 @@ lv_obj_t * mogoringback2 = lv_obj_create(lv_scr_act());
 lv_obj_t * alliancering = lv_obj_create(lv_scr_act());
 
     static void jasassign(lv_event_t * e) {
-    if((lv_obj_has_state(posneg, LV_STATE_CHECKED)) && (lv_obj_has_state(redblu, LV_STATE_CHECKED))) {page = 0; jassize = 1;} //bluepos
-    else if ((lv_obj_has_state(posneg, LV_STATE_CHECKED)) && !(lv_obj_has_state(redblu, LV_STATE_CHECKED))){page = 2; jassize = 1;} //redpos
-    else if (!(lv_obj_has_state(posneg, LV_STATE_CHECKED)) && (lv_obj_has_state(redblu, LV_STATE_CHECKED))){page = 4; jassize = 2;} //blueneg
-    else if (!(lv_obj_has_state(posneg, LV_STATE_CHECKED)) && !(lv_obj_has_state(redblu, LV_STATE_CHECKED))){page = 7; jassize = 4;} //redneg
-            lv_table_set_cell_value(jauton, 0, 0, ((jautonselect[(j+page)%jautonselect.size()].Name).c_str()));
-            lv_table_set_cell_value(jauton, 1, 0, ((jautonselect[(j+page+1)%jautonselect.size()].Name).c_str()));
-            lv_table_set_cell_value(jauton, 2, 0, ((jautonselect[(j+page+2)%jautonselect.size()].Name).c_str()));
-            lv_table_set_cell_value(jauton, 3, 0, ((jautonselect[(j+page+3)%jautonselect.size()].Name).c_str()));
+    if((lv_obj_has_state(posneg, LV_STATE_CHECKED)) && (lv_obj_has_state(redblu, LV_STATE_CHECKED))) {page = j_auton_selector.bluepos.startValue; jassize = j_auton_selector.bluepos.range;} //bluepos
+    else if ((lv_obj_has_state(posneg, LV_STATE_CHECKED)) && !(lv_obj_has_state(redblu, LV_STATE_CHECKED))){page = j_auton_selector.redpos.startValue; jassize = j_auton_selector.redpos.range;} //redpos
+    else if (!(lv_obj_has_state(posneg, LV_STATE_CHECKED)) && (lv_obj_has_state(redblu, LV_STATE_CHECKED))){page = j_auton_selector.blueneg.startValue; jassize = j_auton_selector.blueneg.range;} //blueneg
+    else if (!(lv_obj_has_state(posneg, LV_STATE_CHECKED)) && !(lv_obj_has_state(redblu, LV_STATE_CHECKED))){page = j_auton_selector.redneg.startValue; jassize = j_auton_selector.redneg.range;} //redneg
+            lv_table_set_cell_value(jauton, 0, 0, ((j_auton_selector.jasautontable[(j+page)%j_auton_selector.jasautontable.size()].Name).c_str()));
+            lv_table_set_cell_value(jauton, 1, 0, ((j_auton_selector.jasautontable[(j+page+1)%j_auton_selector.jasautontable.size()].Name).c_str()));
+            lv_table_set_cell_value(jauton, 2, 0, ((j_auton_selector.jasautontable[(j+page+2)%j_auton_selector.jasautontable.size()].Name).c_str()));
+            lv_table_set_cell_value(jauton, 3, 0, ((j_auton_selector.jasautontable[(j+page+3)%j_auton_selector.jasautontable.size()].Name).c_str()));
         if(j > jassize) {j = 0;}
         if(j+1 > jassize) {lv_table_set_cell_value(jauton, 1, 0, " ");}
         if(j+2 > jassize) {lv_table_set_cell_value(jauton, 2, 0, " ");}
@@ -131,157 +118,32 @@ lv_obj_t * alliancering = lv_obj_create(lv_scr_act());
     static void selectauton(lv_event_t * e) {
         uint16_t row, col;
         lv_table_get_selected_cell(jauton, &row, &col);
-        if(row == 0) {autontable = (j+page)%jautonselect.size();}
-        else if(row == 1) {autontable = (j+page+1)%jautonselect.size();}
-        else if(row == 2) {autontable = (j+page+2)%jautonselect.size();}
-        else if(row == 3) {autontable = (j+page+3)%jautonselect.size();}
+        if(row == 0) {j_auton_selector.autontable = (j+page)%j_auton_selector.jasautontable.size();}
+        else if(row == 1) {j_auton_selector.autontable = (j+page+1)%j_auton_selector.jasautontable.size();}
+        else if(row == 2) {j_auton_selector.autontable = (j+page+2)%j_auton_selector.jasautontable.size();}
+        else if(row == 3) {j_auton_selector.autontable = (j+page+3)%j_auton_selector.jasautontable.size();}
     }
-    //get rid of selectauton, add the set functions to jasautonselector, and replace the .Desc in jasautonselector 
-    //with .Name and the corresponding strings
+
     static void jasautonselector(lv_event_t * e) {
-        //this is a big if tree that allows the user to manually set the visuals associated with each auton.
-        //in each if statement, set the string to be the corresponding string in your auton description
-    if (strcmp((jautonselect[autontable].Name).c_str() , "blue_50WP") == 0) {
-        as::auton_selector.auton_page_current = 0;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x0066cc), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 23);
-        lv_obj_set_pos(mogoring1, 260, 200);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "testautonBlue") == 0) {
-        as::auton_selector.auton_page_current = 1;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "move_forward") == 0) {
-        as::auton_selector.auton_page_current = 2;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-    }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "skills") == 0) {
-        as::auton_selector.auton_page_current = 3;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_style_bg_color(redbluind, lv_color_hex(0xff2a00), LV_PART_MAIN);
-    }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "red_50WP") == 0) {
-        as::auton_selector.auton_page_current = 4;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 23);
-        lv_obj_set_pos(mogoring1, 260, 200);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "testautonRed") == 0) {
-        as::auton_selector.auton_page_current = 5;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "blue_4greed") == 0) {
-        as::auton_selector.auton_page_current = 6;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x0066cc), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 48);
-        lv_obj_set_pos(mogoring1, 260, 175);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "blue_4ring") == 0) {
-        as::auton_selector.auton_page_current = 7;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x0066cc), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 35);
-        lv_obj_set_pos(mogoring1, 260, 188);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x0066cc), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "blue_6ring") == 0) {
-        as::auton_selector.auton_page_current = 8;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x0066cc), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "red_4greed") == 0) {
-        as::auton_selector.auton_page_current = 9;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 48);
-        lv_obj_set_pos(mogoring1, 260, 175);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "red_4ring") == 0) {
-        as::auton_selector.auton_page_current = 10;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 35);
-        lv_obj_set_pos(mogoring1, 260, 188);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        }
-    else if (strcmp((jautonselect[autontable].Name).c_str() , "red_6ring") == 0) {
-        as::auton_selector.auton_page_current = 11;
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0xff2a00), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        }        
+            autonUiElements();
             uint16_t row, col;
             lv_table_get_selected_cell(jauton, &row, &col);
-    if(strcmp(lv_table_get_cell_value(jauton, row, 0), " ") == 0) {
-        as::auton_selector.auton_page_current = 2;
+        if(strcmp(lv_table_get_cell_value(jauton, row, 0), " ") == 0) {
+        noselection = true;
         lv_label_set_text(selectedAuton, "No auton selected");
-        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring1, 46, 73);
-        lv_obj_set_pos(mogoring1, 260, 150);
-        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-        lv_obj_set_size(mogoring2, 46, 73);
-        lv_obj_set_pos(mogoring2, 340, 150);
-        lv_obj_set_style_bg_color(alliancering, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
+        uivalues.autondisplayset(0, 0, uivalues.neutral, uivalues.neutral, uivalues.neutral);
         lv_obj_set_style_bg_color(redbluind, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
         lv_obj_set_style_bg_color(posind, lv_color_hex(0x5d5d5d), LV_PART_MAIN); 
         lv_obj_set_style_bg_color(negind, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
     } else {
-        lv_label_set_text(selectedAuton, ((jautonselect[(autontable)%jautonselect.size()].Desc).c_str()));
+        noselection = false;
+        lv_label_set_text(selectedAuton, ((j_auton_selector.jasautontable[(j_auton_selector.autontable)%j_auton_selector.jasautontable.size()].Desc).c_str()));
     }
-    //pros::delay(500); //<----v only uncomment these if testing on the brain, it runs auto immediately after it is selected
-    //autonomous(); //<--------^
+        lv_obj_set_style_bg_color(mogoring1, lv_color_hex(uivalues.mogo1.jcolor), LV_PART_MAIN);
+        lv_obj_set_size(mogoringback1, 46, uivalues.mogo1.jheight[uivalues.mogodisp1-1]);
+        lv_obj_set_style_bg_color(mogoring2, lv_color_hex(uivalues.mogo2.jcolor), LV_PART_MAIN);
+        lv_obj_set_size(mogoringback2, 46, uivalues.mogo2.jheight[uivalues.mogodisp2-1]);
+        lv_obj_set_style_bg_color(alliancering, lv_color_hex(uivalues.ally.jcolor), LV_PART_MAIN);
 }
 
 lv_event_cb_t autonpage = updownbtn;
@@ -333,13 +195,15 @@ void screeninit(){
             lv_obj_set_pos(mogoringback1, 260, 150);
             lv_obj_set_pos(mogoringback2, 340, 150);
             lv_obj_set_pos(alliancering, 267, 72);
-    lv_obj_move_background(mogoringback1);
-    lv_obj_move_background(mogoringback2);
+    lv_obj_move_background(mogoring1);
+    lv_obj_move_background(mogoring2);
                 lv_obj_add_style(mogoring1, &styleind, LV_PART_MAIN);
                 lv_obj_add_style(mogoring2, &styleind, LV_PART_MAIN);
                 lv_obj_add_style(mogoringback1, &styleind, LV_PART_MAIN);
                 lv_obj_add_style(mogoringback2, &styleind, LV_PART_MAIN);
                 lv_obj_add_style(alliancering, &styleind, LV_PART_MAIN);
+                lv_obj_set_scrollbar_mode(mogoringback1, LV_SCROLLBAR_MODE_OFF);
+                lv_obj_set_scrollbar_mode(mogoringback2, LV_SCROLLBAR_MODE_OFF);
                 lv_obj_set_scrollbar_mode(alliancering, LV_SCROLLBAR_MODE_OFF);
                 lv_obj_set_style_pad_top(jauton, 8, LV_PART_ITEMS);
                 lv_obj_set_style_pad_bottom(jauton, 6, LV_PART_ITEMS);
@@ -348,7 +212,6 @@ void screeninit(){
                 lv_obj_add_style(jauton, &style, LV_PART_ITEMS);
         lv_table_set_col_width(jauton, 0, 230);
     lv_obj_move_background(jauton);
-                //add selected auton code here (label)
                 lv_obj_add_style(selectedAuton, &style, LV_PART_MAIN);
             lv_obj_set_pos(selectedAuton, 5, 182);
         lv_obj_set_size(selectedAuton, 230, 47);
@@ -359,6 +222,7 @@ void screeninit(){
                 lv_obj_set_style_pad_left(selectedAuton, 4, LV_PART_MAIN);
                 lv_obj_set_style_pad_top(selectedAuton, 8, LV_PART_MAIN);
             lv_label_set_text(selectedAuton, "No auton selected");
+            noselection = true;
         lv_obj_set_size(jauton, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
             lv_obj_set_pos(jauton, 5, 60);
     lv_obj_move_foreground(autonselectup);

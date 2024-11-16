@@ -10,7 +10,7 @@
 /////
   
 void tasks() { 
-  pros::Task allianceprobing(allianceProbe);
+  //pros::Task allianceprobing(allianceProbe);
   pros::Task colordetection(colorDetect);
   pros::Task colorProbing(colorProbe);
   pros::Task ringsort(ringsensTask); 

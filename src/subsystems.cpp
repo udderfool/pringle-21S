@@ -5,6 +5,7 @@
 #include "main.h"
 #include "pros/colors.hpp"
 #include "pros/misc.h"
+#include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include "pros/screen.hpp"
 #include <string>
@@ -25,24 +26,34 @@ void setMogo() {
 }
 
 void setWall() {
-  if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-    wallmech.move_absolute(360, 90);
+  wallmech.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+    wallmech.move_absolute(-800, -127);
+  } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    wallmech.move_absolute(-10, 127);
   } else {
-    wallmech.move_absolute(0, 90);
+    wallmech.brake();
   }
+  /*if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+    wallmech.move(127);
+  } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    wallmech.move(-127);
+  } else {
+    intake.move(0);
+  }*/
 }
 //temp code for test or something idk
 void setRedirect() {
-  redirect.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+  indexer.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
   /*
   //if trigger button and optical sensor (red or blue) are true, then set clamp after [x] ms
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     if (intakeColor == "red" || intakeColor == "blue") {
-      redirect.set(true);
+      indexer.set(true);
     }
   }
   if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    redirect.set(false);
+    indexer.set(false);
   }
   */
 }

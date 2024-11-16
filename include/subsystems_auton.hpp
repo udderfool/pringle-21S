@@ -2,6 +2,7 @@
 
 #include "api.h"
 #include "EZ-Template/api.hpp"
+#include "subsystems.hpp"
 
 
 //passive (running in driver and auton)
