@@ -32,7 +32,7 @@ void setWall() {
   } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     wallmech.move(127);
   } else {
-    wallmech.brake();
+    wallmech.move(0);
   }
   /*if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
     wallmech.move(127);
