@@ -28,9 +28,9 @@ void setMogo() {
 void setWall() {
   wallmech.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
   if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-    wallmech.move_absolute(-800, -127);
+    wallmech.move(-127);
   } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    wallmech.move_absolute(-10, 127);
+    wallmech.move(127);
   } else {
     wallmech.brake();
   }
