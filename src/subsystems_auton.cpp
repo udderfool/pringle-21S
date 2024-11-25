@@ -93,35 +93,29 @@ void discardSafetySet() {
 
 void discard() {
   if (discardSwitch != true) {
-  //pros::screen::set_pen(pros::Color::white_smoke);
-  //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
   indexer.set(true);
-  pros::delay(500);
+  pros::delay(2000);
   indexer.set(false);
-  neutralAssign();
-  //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
   return;
   } else if (discardSwitch == true) {
-    //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "ring thrown!");
     mogomech.set(false);
-    intake.move(20);
+    intake.move(-20);
     pros::delay(500);
-    intake.move(-127);
+    intake.move(127);
     pros::delay(500);
     mogomech.set(true);
     intake.move(0);
     neutralAssign();
-    //pros::screen::print(pros::E_TEXT_MEDIUM, 330, 75, "            ");
     return;
   }
 }
 
 void ringsensTask() {
-while(true) {
-  if ((allianceColor == 'R' && intakeColor == "blue") || (allianceColor == 'B' && intakeColor == "red"))  {
+  while(true) {
+    if ((allianceColor == 'R' && intakeColor == "blue") || 
+        (allianceColor == 'B' && intakeColor == "red"))  {
       discard();
+    }
+    pros::delay(10);
   }
-  pros::delay(10);
-  }
-  return;
 }

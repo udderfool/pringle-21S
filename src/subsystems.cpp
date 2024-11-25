@@ -26,21 +26,14 @@ void setMogo() {
 }
 
 void setWall() {
-  wallmech.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  wallmech.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-    wallmech.move(-127);
+    wallmech.move_absolute(-750, -90);
   } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    wallmech.move(127);
+    wallmech.move_absolute(0, 90);
   } else {
-    wallmech.move(0);
+    wallmech.brake();
   }
-  /*if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-    wallmech.move(127);
-  } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    wallmech.move(-127);
-  } else {
-    intake.move(0);
-  }*/
 }
 //temp code for test or something idk
 void setRedirect() {

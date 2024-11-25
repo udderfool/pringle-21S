@@ -67,6 +67,7 @@ void initialize() {
       jas::jasauton("red_6ring", "red 6 ring no WP", red_6ring),
       jas::jasauton("move_forward", "Move forward", move_forward),
       jas::jasauton("skills", "skills (unfinished, unreliable)", skills),
+      jas::jasauton("skills50", "50 point skills auton", skills50)
   });
 
   j_auton_selector.bluepos.startValue = 0; //starting value in the vector for the blue positive autons
@@ -76,7 +77,7 @@ void initialize() {
   j_auton_selector.blueneg.startValue = 4; //starting value in the vector for the blue negative autons
   j_auton_selector.blueneg.range = 2; //one less than the range in the vector for the blue negative autons
   j_auton_selector.redneg.startValue = 7; //starting value in the vector for the red negative autons
-  j_auton_selector.redneg.range = 4; //one less than the range in the vector for the red negative autons
+  j_auton_selector.redneg.range = 5; //one less than the range in the vector for the red negative autons
 
   // Initialize chassis and auton selector
   chassis.initialize();
@@ -112,6 +113,8 @@ void autonUiElements() {
     uivalues.autondisplayset(0, 0, uivalues.neutral, uivalues.neutral, uivalues.neutral);
   } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "skills") == 0) {
     uivalues.autondisplayset(6, 6, uivalues.red, uivalues.red, uivalues.red);
+  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "skills50") == 0) {
+    uivalues.autondisplayset(5, 6, uivalues.red, uivalues.red, uivalues.red);
   } 
 }
 
@@ -204,6 +207,7 @@ void opcontrol() {
     setMogo();
     setRedirect();
     setWall();
+    neutralAssign();
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }

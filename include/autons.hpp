@@ -19,6 +19,7 @@ void blue_4greed();
 void blue_6ring();
 
 void skills();
+void skills50();
 
 void drive_example();
 void turn_example();
