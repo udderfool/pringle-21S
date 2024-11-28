@@ -1,15 +1,4 @@
-#include "subsystems.hpp"
-#include "EZ-Template/util.hpp"
-#include "liblvgl/llemu.hpp"
-#include "liblvgl/widgets/lv_switch.h"
 #include "main.h"
-#include "pros/colors.hpp"
-#include "pros/misc.h"
-#include "pros/motors.h"
-#include "pros/rtos.hpp"
-#include "pros/screen.hpp"
-#include <string>
-
 
 void setIntake() {
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {

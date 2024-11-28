@@ -1,8 +1,5 @@
+#include "liblvgl/core/lv_obj_pos.h"
 #include "main.h"
-#include "pros/rtos.h"
-#include "pros/rtos.hpp"
-#include "subsystems.hpp"
-#include "subsystems_auton.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -81,18 +78,24 @@ void move_forward(){
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true); 
 }*/
 void testautonRed() { 
+  
   tasks();
   redAssign();
+  lv_obj_t * gyat = lv_obj_create(autoselector);
+  lv_obj_set_style_bg_color(gyat, lv_color_hex(0x42f548), LV_PART_MAIN);
+  lv_obj_set_size(gyat, 20, 20);
+  lv_obj_set_scrollbar_mode(gyat, LV_SCROLLBAR_MODE_OFF);
   intake.move(-127);
-  chassis.pid_wait_until(10_in);
   chassis.pid_wait();
 }
 
 void testautonBlue() { 
   tasks();
   blueAssign();
-  discardSafetySet();
-  pros::delay(100000);
+  lv_obj_t * gyat2 = lv_obj_create(autoselector);
+  lv_obj_set_style_bg_color(gyat2, lv_color_hex(0xa442f5), LV_PART_MAIN);
+  lv_obj_set_scrollbar_mode(gyat2, LV_SCROLLBAR_MODE_OFF);
+  lv_obj_set_size(gyat2, 20, 10);
   mogomech.set(true);
   chassis.pid_wait();
 }

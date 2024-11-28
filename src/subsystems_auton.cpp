@@ -1,20 +1,11 @@
-#include "subsystems_auton.hpp"
-#include "EZ-Template/util.hpp"
-#include "liblvgl/core/lv_obj.h"
-#include "liblvgl/core/lv_obj_pos.h"
-#include "liblvgl/lv_api_map.h"
-#include "liblvgl/widgets/lv_switch.h"
+#include "liblvgl/misc/lv_color.h"
 #include "main.h"
-#include "pros/colors.hpp"
-#include "pros/misc.h"
-#include "pros/rtos.hpp"
-#include "pros/screen.hpp"
-#include <string>
 
 std::string intakeColor = "neutral";
 char allianceColor = 'A';
 bool discardSwitch;
-lv_obj_t * ringind= lv_obj_create(lv_scr_act());
+lv_obj_t * ringind = lv_obj_create(autoselector);
+int spurfly;
 
 void colorDetect() {
 while(true) {
@@ -23,6 +14,8 @@ while(true) {
     intakeColor = "red";
   } else if ((ringsens.get_hue() < 225) && (ringsens.get_hue() > 210)) {
     intakeColor = "blue";
+  } else if ((ringsens.get_hue() < 90) && (ringsens.get_hue() > 70)) {
+    intakeColor = "spurfly";
   } else {
     intakeColor = "neutral";
   }
@@ -42,9 +35,12 @@ while(true) {
     lv_obj_set_style_bg_color(ringind, lv_color_hex(0xff2a00), LV_PART_MAIN);
   } else if (intakeColor == "blue") {
     lv_obj_set_style_bg_color(ringind, lv_color_hex(0x0066cc), LV_PART_MAIN);
+  } else if (intakeColor == "spurfly") {
+    spurfly = (spurfly+1)%360;
+    lv_obj_set_style_bg_color(ringind, lv_color_hsv_to_rgb(spurfly,100,100), LV_PART_MAIN); 
   } else if (intakeColor == "neutral") {
     lv_obj_set_style_bg_color(ringind, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
-  }
+  } 
   pros::delay(10);
   }
   lv_obj_move_background(ringind);

@@ -34,8 +34,6 @@ void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
-  pros::screen::set_pen(0x15171a);
-  pros::screen::fill_rect(0, 0, 480, 240);
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(false);  // Enables modifying the controller curve with buttons on the joysticks
@@ -52,70 +50,31 @@ void initialize() {
   // Autonomous Selector using lvgl
   j_auton_selector.jautonpopulate({
     //blue positive
-      jas::jasauton("blue_50WP", "blue 50% wp", blue_50WP),
-      jas::jasauton("testautonBlue", "at-home testing for \nblue auton", testautonBlue),
+      jas::jasauton(blue_50WP, 1, 1, "Blue 50% WP", "Blue 2 ring in positive corner", 2, 0, false),
+      jas::jasauton(testautonBlue, 1, 2, "Blue test auton", "Testing for blue autons", 0, 0, false),
     //red positive
-      jas::jasauton("red_50WP", "red 50% wp", red_50WP),
-      jas::jasauton("testautonRed", "at-home testing for \nred auton", testautonRed),
+      jas::jasauton(red_50WP, 0, 1, "Red 50% WP", "Red 2 ring in positive corner", 2, 0, false),
+      jas::jasauton(testautonRed, 0, 2, "Red test auton", "Testing for red autons", 0, 0, false),
     //blue negative
-      jas::jasauton("blue_4greed", "blue 4 ring no WP", blue_4greed),
-      jas::jasauton("blue_4ring", "blue 4 ring wp \n(DO NOT RUN)", blue_4ring),
-      jas::jasauton("blue_6ring", "blue 6 ring no WP", blue_6ring),
+      jas::jasauton(blue_4greed, 1, 0, "Blue 4 ring no WP", "Blue 4 ring in negative corner", 4, 0, false),
+      jas::jasauton(blue_4ring, 1, 0, "Blue 4 ring WP", "Blue 3 ring in negative corner + 1 ring on alliance", 3, 0, true),
+      jas::jasauton(blue_6ring, 1, 0, "Blue 6 ring no WP", "Blue 6 ring in negative corner", 6, 0, false),
     //red negative
-      jas::jasauton("red_4greed", "red 4 ring no WP", red_4greed),
-      jas::jasauton("red_4ring", "red 4 ring wp \n(DO NOT RUN)",  red_4ring),
-      jas::jasauton("red_6ring", "red 6 ring no WP", red_6ring),
-      jas::jasauton("move_forward", "Move forward", move_forward),
-      jas::jasauton("skills", "skills (unfinished, unreliable)", skills),
-      jas::jasauton("skills50", "50 point skills auton", skills50)
-  });
+      jas::jasauton(red_4greed, 0, 0, "Red 4 ring no WP", "Red 4 ring in negative corner", 4, 0, false),
+      jas::jasauton(red_4ring, 0, 0, "Red 4 ring WP", "Red 3 ring in negative corner + 1 ring on alliance", 3, 0, true),
+      jas::jasauton(red_6ring, 0, 0, "Red 6 ring no WP", "Red 6 ring in negative corner", 6, 0, false),
+      jas::jasauton(skills, 0, 2, "Old skills auton", "Unfinished, inconsistent skills auton", 6, 6, true),
+      jas::jasauton(skills50, 0, 2, "New skills auton", "Potential 50 pt skills auton- does not work yet, takes too long", 5, 6, true),
 
-  j_auton_selector.bluepos.startValue = 0; //starting value in the vector for the blue positive autons
-  j_auton_selector.bluepos.range = 1; //one less than the range in the vector for the blue positive autons (i.e if the value is 1, there are 2 autons)
-  j_auton_selector.redpos.startValue = 2; //starting value in the vector for the red positive autons
-  j_auton_selector.redpos.range = 1; //one less than the range in the vector for the red positive autons
-  j_auton_selector.blueneg.startValue = 4; //starting value in the vector for the blue negative autons
-  j_auton_selector.blueneg.range = 2; //one less than the range in the vector for the blue negative autons
-  j_auton_selector.redneg.startValue = 7; //starting value in the vector for the red negative autons
-  j_auton_selector.redneg.range = 5; //one less than the range in the vector for the red negative autons
+      jas::jasauton(move_forward, 2, 2, "Move forward", "Drive straight forward", 0, 0, false)
+  });
 
   // Initialize chassis and auton selector
   chassis.initialize();
-  screeninit();
   pros::Task colordetection(colorDetect);
   pros::Task colorProbing(colorProbe);
+  screeninit();
   master.rumble(".");
-}
-
-void autonUiElements() {
-  //sets the ui elements displayed for any given auton
-  if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "blue_50WP") == 0) {
-    uivalues.autondisplayset(2, 0, uivalues.blue, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "testautonBlue") == 0) {
-    uivalues.autondisplayset(0, 0, uivalues.neutral, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "red_50WP") == 0) {
-    uivalues.autondisplayset(2, 0, uivalues.red, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "testautonRed") == 0) {
-    uivalues.autondisplayset(0, 0, uivalues.neutral, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "blue_4greed") == 0) {
-    uivalues.autondisplayset(4, 0, uivalues.blue, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "blue_4ring") == 0) {
-    uivalues.autondisplayset(3, 0, uivalues.blue, uivalues.neutral, uivalues.blue);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "blue_6ring") == 0) {
-    uivalues.autondisplayset(6, 0, uivalues.blue, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "red_4greed") == 0) {
-    uivalues.autondisplayset(4, 0, uivalues.red, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "red_4ring") == 0) {
-    uivalues.autondisplayset(3, 0, uivalues.red, uivalues.neutral, uivalues.red);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "red_6ring") == 0) {
-    uivalues.autondisplayset(6, 0, uivalues.red, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "move_forward") == 0) {
-    uivalues.autondisplayset(0, 0, uivalues.neutral, uivalues.neutral, uivalues.neutral);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "skills") == 0) {
-    uivalues.autondisplayset(6, 6, uivalues.red, uivalues.red, uivalues.red);
-  } else if(strcmp((j_auton_selector.jasautontable[j_auton_selector.autontable].Name).c_str() , "skills50") == 0) {
-    uivalues.autondisplayset(5, 6, uivalues.red, uivalues.red, uivalues.red);
-  } 
 }
 
 /**
@@ -157,7 +116,7 @@ void autonomous() {
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
   if(noselection == false) {
-  j_auton_selector.jautonRun();
+  jautonrun();
   }
   //ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }

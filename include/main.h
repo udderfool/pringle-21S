@@ -44,8 +44,11 @@
 #include "EZ-Template/api.hpp"
 
 // More includes here...
+#include "autonbuilder.hpp"
 #include "autons.hpp"
 #include "subsystems.hpp"
+#include "subsystems_auton.hpp"
+#include "brainui.hpp"
 
 
 /**
