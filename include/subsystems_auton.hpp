@@ -2,9 +2,9 @@
 
 #include "api.h"
 #include "EZ-Template/api.hpp"
+#include "pros/motor_group.hpp"
 #include "subsystems.hpp"
 
-extern lv_obj_t * ringind;
 //passive (running in driver and auton)
 void colorDetect();
 void colorProbe();

@@ -423,7 +423,7 @@
     "upload_options": {
       "description": "skibidi",
       "icon": "pizza",
-      "slot": 1
+      "slot": 2
     },
     "use_early_access": false
   }

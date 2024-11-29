@@ -49,6 +49,7 @@
 #include "subsystems.hpp"
 #include "subsystems_auton.hpp"
 #include "brainui.hpp"
+#include "motortempsui.hpp"
 
 
 /**

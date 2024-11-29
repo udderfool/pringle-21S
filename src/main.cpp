@@ -74,6 +74,7 @@ void initialize() {
   pros::Task colordetection(colorDetect);
   pros::Task colorProbing(colorProbe);
   screeninit();
+  tempcheck();
   master.rumble(".");
 }
 
