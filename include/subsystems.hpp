@@ -2,9 +2,6 @@
 
 #include "api.h"
 #include "EZ-Template/api.hpp"
-#include "pros/motor_group.hpp"
-#include "pros/motors.hpp"
-#include "pros/optical.hpp"
 
 //Motors, sensors, etc
 inline pros::MotorGroup intake({6, 4});

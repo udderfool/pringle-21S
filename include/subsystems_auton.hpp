@@ -2,8 +2,6 @@
 
 #include "api.h"
 #include "EZ-Template/api.hpp"
-#include "pros/motor_group.hpp"
-#include "subsystems.hpp"
 
 //passive (running in driver and auton)
 void colorDetect();
