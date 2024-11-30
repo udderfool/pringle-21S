@@ -1,3 +1,4 @@
+#include "EZ-Template/drive/drive.hpp"
 #include "EZ-Template/util.hpp"
 #include "liblvgl/misc/lv_color.h"
 #include "main.h"
@@ -64,7 +65,7 @@ while(true) {
 }
 
 /*void tempProbe() {
-  float chassisTemp = 1 ;
+  float chassisTemp =  [0].get_temperature;
   float intakeTemp = intake.get_temperature();
   float wallmechTemp = wallmech.get_temperature();
   pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "A %.0f°C", spurfly);
