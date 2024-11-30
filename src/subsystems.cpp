@@ -46,5 +46,5 @@ bool shift() {
 }
 
 void setdoinker() {
-    mogomech.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
+    doinker.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 }

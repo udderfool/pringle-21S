@@ -20,5 +20,5 @@ void setIntake();
 void setMogo();
 void setRedirect();
 void setWall();
-void setdoinker();
 bool shift();
+void setdoinker();
