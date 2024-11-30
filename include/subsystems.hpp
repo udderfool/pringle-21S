@@ -12,6 +12,7 @@ inline pros::Motor wallmech(21);
 inline ez::Piston mogomech('G');
 inline ez::Piston indexer('A');
 inline pros::Optical ringsens(8);
+inline ez::Piston doinker('C');
 // inline pros::adi::DigitalIn limit_switch('A');
 
 //Functions

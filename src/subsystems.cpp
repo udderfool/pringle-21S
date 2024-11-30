@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/misc.h"
 
 void setIntake() {
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
@@ -44,3 +45,6 @@ bool shift() {
   return master.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
 }
 
+void setdoinker() {
+    mogomech.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
+}
