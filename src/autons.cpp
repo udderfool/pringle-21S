@@ -1,4 +1,3 @@
-#include "liblvgl/core/lv_obj_pos.h"
 #include "main.h"
 
 /////

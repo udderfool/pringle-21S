@@ -1,8 +1,4 @@
-#include "EZ-Template/drive/drive.hpp"
-#include "EZ-Template/util.hpp"
-#include "liblvgl/misc/lv_color.h"
 #include "main.h"
-#include "pros/misc.h"
 
 std::string intakeColor = "neutral";
 char allianceColor = 'A';
@@ -63,13 +59,6 @@ while(true) {
   pros::delay(10);
   }
 }
-
-/*void tempProbe() {
-  float chassisTemp =  [0].get_temperature;
-  float intakeTemp = intake.get_temperature();
-  float wallmechTemp = wallmech.get_temperature();
-  pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "A %.0f°C", spurfly);
-}*/
 
 //variable changed during auton and driver to determine red/blue/no alliance selection
 
