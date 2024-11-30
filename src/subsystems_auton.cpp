@@ -1,4 +1,3 @@
-#include "liblvgl/misc/lv_color.h"
 #include "main.h"
 
 std::string intakeColor = "neutral";

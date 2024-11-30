@@ -38,6 +38,7 @@ void jautontable::jautonpopulate(std::vector<jasauton> JasAutonTable) {
 }
 
 lv_obj_t * autoselector = lv_obj_create(NULL);
+lv_obj_t * motortemps = lv_obj_create(NULL);
 lv_obj_t * overlay = lv_img_create(autoselector);
 LV_IMG_DECLARE(brainuioverlay);
 lv_obj_t * autonselectup = lv_btn_create(autoselector);
@@ -56,6 +57,7 @@ lv_obj_t * mogoring2 = lv_obj_create(autoselector);
 lv_obj_t * mogoringback1 = lv_obj_create(autoselector);
 lv_obj_t * mogoringback2 = lv_obj_create(autoselector);
 lv_obj_t * alliancering = lv_obj_create(autoselector);
+lv_obj_t * pageswitch = lv_btn_create(autoselector);
 
 vector<uint32_t> colortable = {
     0xff2a00,
@@ -128,9 +130,15 @@ static void updownbtn(lv_event_t * e) {
     } listupdate();
 }
 
+static void pageswitchbtn(lv_event_t * e) {
+    lv_obj_get_parent(pageswitch) == autoselector ? lv_scr_load(motortemps) : lv_scr_load(autoselector);
+    lv_obj_set_parent(pageswitch, lv_scr_act());
+} 
+
 lv_event_cb_t jautonCurate = jautoncurate;
 lv_event_cb_t selectAuton = selectauton;
 lv_event_cb_t upDownBtn = updownbtn;
+lv_event_cb_t pageSwitchBtn = pageswitchbtn;
 
 void screeninit(){
     static lv_style_t style;
@@ -157,13 +165,16 @@ void screeninit(){
     lv_obj_move_foreground(overlay);
     lv_scr_load(autoselector);
     lv_obj_add_style(autoselector, &style, LV_PART_MAIN);
+    lv_obj_add_style(motortemps, &style, LV_PART_MAIN);
         lv_obj_set_size(autonselectup, 11, 58);
             lv_obj_set_pos(autonselectup, 242, 50);
-                lv_obj_add_style(autonselectup, &stylebtn, LV_PART_MAIN);
-                lv_obj_add_style(autonselectdown, &stylebtn, LV_PART_MAIN);
-                lv_obj_set_style_bg_color(autonselectup, lv_color_hex(0xcfffe9), LV_PART_MAIN);
         lv_obj_set_size(autonselectdown, 11, 58);
             lv_obj_set_pos(autonselectdown, 242, 118);
+        lv_obj_set_size(pageswitch, 18, 18);
+            lv_obj_set_pos(pageswitch, 456, 6);
+                lv_obj_add_style(autonselectup, &stylebtn, LV_PART_MAIN);
+                lv_obj_add_style(autonselectdown, &stylebtn, LV_PART_MAIN);
+                lv_obj_add_style(pageswitch, &stylebtn, LV_PART_MAIN);
         lv_obj_set_size(mogoring1, 46, 78);
         lv_obj_set_size(mogoring2, 46, 78);
         lv_obj_set_size(mogoringback1, 46, 78);
@@ -206,6 +217,7 @@ void screeninit(){
             lv_obj_set_pos(jauton, 5, 60);
     lv_obj_move_foreground(autonselectup);
     lv_obj_move_foreground(autonselectdown);
+    lv_obj_move_foreground(pageswitch);
                 lv_obj_set_style_bg_color(redblu, lv_color_hex(0xff2a00), LV_STATE_DEFAULT);
                 lv_obj_set_style_bg_color(redblu, lv_color_hex(0x0066cc), LV_STATE_CHECKED | LV_PART_INDICATOR);
                 lv_obj_set_style_bg_color(redblu, lv_color_hex(0xcfffe9), LV_PART_KNOB);
@@ -230,6 +242,7 @@ void screeninit(){
                 lv_obj_add_style(autondesc, &style, LV_PART_MAIN);
             lv_label_set_text(autondesc, "auton selection:");
 
+            lv_obj_add_event_cb(pageswitch, pageSwitchBtn, LV_EVENT_CLICKED, NULL);
             lv_obj_add_event_cb(redblu, jautonCurate, LV_EVENT_CLICKED, NULL);
             lv_obj_add_event_cb(posneg, jautonCurate, LV_EVENT_CLICKED, NULL);
             lv_obj_add_event_cb(autonselectup, upDownBtn, LV_EVENT_CLICKED, NULL);

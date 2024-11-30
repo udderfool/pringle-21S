@@ -2,9 +2,6 @@
 
 #include "api.h"
 #include "EZ-Template/api.hpp"
-#include "autons.hpp" //this is our autons header files yours might be called something different
-#include <cstdint>
-#include <string>
 
 void screeninit();
 void jautonrun();
@@ -13,8 +10,11 @@ static void clear();
 static void jautoncurate(lv_event_t * e);
 static void selectauton(lv_event_t * e);
 static void updownbtn(lv_event_t * e);
+static void pageswitchbtn(lv_event_t * e);
 
 extern lv_obj_t * autoselector;
+extern lv_obj_t * motortemps;
+extern lv_obj_t * pageswitch;
 
 extern bool noselection;
 namespace jas {
