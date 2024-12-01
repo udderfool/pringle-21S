@@ -1,5 +1,4 @@
 #include "main.h"
-#include "pros/misc.h"
 
 void setIntake() {
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {

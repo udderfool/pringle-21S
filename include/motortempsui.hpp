@@ -11,7 +11,7 @@ namespace jas {
     class motors {
         public:
         struct motordata {
-            int port;
+            char index;
             pros::Motor motor;
             std::string name;
         };
@@ -19,3 +19,5 @@ namespace jas {
 }
 
 extern vector<jas::motors::motordata> motorbar;
+extern vector<lv_obj_t *> motorboxes;
+extern lv_obj_t * mainlabel;

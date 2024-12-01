@@ -27,15 +27,15 @@ pros::Motor driveright2(18);
 pros::Motor driveright3(20);
 
 vector<jas::motors::motordata> motorbar {
-       {4, intake1, "intake 1"},
-       {13, driveleft1, "drive l1"},
-       {14, driveleft2, "drive l2"},
-       {15, driveleft3, "drive l3"},
-       {6, intake2, "intake 2"},
-       {17, driveright1, "drive r1"},
-       {18, driveright2, "drive r2"},
-       {20, driveright3, "drive r3"},
-       {21, wallstake, "wallmech"}
+       {0, intake1, "intake 1"},
+       {1, driveleft1, "drive l1"},
+       {2, driveleft2, "drive l2"},
+       {3, driveleft3, "drive l3"},
+       {4, intake2, "intake 2"},
+       {5, driveright1, "drive r1"},
+       {6, driveright2, "drive r2"},
+       {7, driveright3, "drive r3"},
+       {8, wallstake, "wallmech"}
 };
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -152,11 +152,9 @@ void autonomous() {
 
 void opcontrol() {
   neutralAssign();
-  lv_event_send(pageswitch, LV_EVENT_CLICKED, NULL);
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_BRAKE;
   chassis.drive_brake_set(driver_preference_brake);
-  
 
   while (true) {
     // PID Tuner
@@ -172,9 +170,14 @@ void opcontrol() {
       if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
         autonomous();
         chassis.drive_brake_set(driver_preference_brake);
-      }
+      }  
       chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
     }
+  if(lv_obj_get_parent(pageswitch) == motortemps) {
+       for(int m = 0; m < motorbar.size(); m++) {
+      lv_event_send(motorboxes[m], LV_EVENT_REFRESH, NULL);
+    }
+  }
 
     //ROBOT CODE HERE
     chassis.opcontrol_tank();  // Tank control

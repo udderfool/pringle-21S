@@ -32,13 +32,17 @@ void colorProbe() {
 while(true) {
   if (intakeColor == "red") {
     lv_obj_set_style_bg_color(ringind, lv_color_hex(0xff2a00), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(mainlabel, lv_color_hex(0xff2a00), LV_PART_MAIN);
   } else if (intakeColor == "blue") {
     lv_obj_set_style_bg_color(ringind, lv_color_hex(0x0066cc), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(mainlabel, lv_color_hex(0x0066cc), LV_PART_MAIN);
   } else if (intakeColor == "spurfly") {
     spurfly = (spurfly+1)%360;
     lv_obj_set_style_bg_color(ringind, lv_color_hsv_to_rgb(spurfly,100,100), LV_PART_MAIN); 
+    lv_obj_set_style_bg_color(mainlabel, lv_color_hsv_to_rgb(spurfly,100,100), LV_PART_MAIN);
   } else if (intakeColor == "neutral") {
     lv_obj_set_style_bg_color(ringind, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(mainlabel, lv_color_hex(0x5d5d5d), LV_PART_MAIN);
   } 
   pros::delay(10);
   }
