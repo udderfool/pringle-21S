@@ -59,7 +59,7 @@ lv_obj_t *mogoringback2 = lv_obj_create(autoselector);
 lv_obj_t *alliancering = lv_obj_create(autoselector);
 lv_obj_t *pageswitch = lv_btn_create(autoselector);
 
-vector<uint32_t> colortable = {0xff2a00, 0x0066cc, 0x5d5d5d};
+vector<lv_color32_t> colortable = {lv_color_hex(0xff2a00), lv_color_hex(0x0066cc), lv_color_hex(0x5d5d5d)};
 
 void jautonrun() { jautoncurated[selected].AutonCall(); }
 
@@ -109,10 +109,11 @@ static void selectauton(lv_event_t *e) {
 															 lv_obj_set_style_bg_color(redbluind, lv_color_hex(0xff2a00), LV_PART_MAIN);
 		lv_obj_has_state(posneg, LV_STATE_CHECKED) == true ? lv_obj_set_style_bg_color(posind, lv_color_hex(0xdb8826), LV_PART_MAIN) :
 															 lv_obj_set_style_bg_color(negind, lv_color_hex(0x00b5bc), LV_PART_MAIN);
-		lv_label_set_text(selectedAuton, ((jautoncurated[selected].Desc).c_str()));
-		lv_obj_set_style_bg_color(mogoring1, lv_color_hex(colortable[jautoncurated[selected].RedBluFilt]), LV_PART_MAIN);
+		colortable[2] = lv_obj_get_style_bg_color(redbluind, LV_PART_MAIN);
+        lv_label_set_text(selectedAuton, ((jautoncurated[selected].Desc).c_str()));
+		lv_obj_set_style_bg_color(mogoring1, colortable[jautoncurated[selected].RedBluFilt], LV_PART_MAIN);
 		lv_obj_set_size(mogoringback1, 46, (78 - (13 * jautoncurated[selected].Mogo1)));
-		lv_obj_set_style_bg_color(mogoring2, lv_color_hex(colortable[jautoncurated[selected].RedBluFilt]), LV_PART_MAIN);
+		lv_obj_set_style_bg_color(mogoring2, colortable[jautoncurated[selected].RedBluFilt], LV_PART_MAIN);
 		lv_obj_set_size(mogoringback2, 46, (78 - (13 * jautoncurated[selected].Mogo2)));
 		jautoncurated[selected].AllyRing == true ? lv_obj_add_flag(alliancering, LV_OBJ_FLAG_HIDDEN) : lv_obj_clear_flag(alliancering, LV_OBJ_FLAG_HIDDEN);
 	}
