@@ -110,7 +110,7 @@ static void selectauton(lv_event_t *e) {
 		lv_obj_has_state(posneg, LV_STATE_CHECKED) == true ? lv_obj_set_style_bg_color(posind, lv_color_hex(0xdb8826), LV_PART_MAIN) :
 															 lv_obj_set_style_bg_color(negind, lv_color_hex(0x00b5bc), LV_PART_MAIN);
 		colortable[2] = lv_obj_get_style_bg_color(redbluind, LV_PART_MAIN);
-        lv_label_set_text(selectedAuton, ((jautoncurated[selected].Desc).c_str()));
+		lv_label_set_text(selectedAuton, ((jautoncurated[selected].Desc).c_str()));
 		lv_obj_set_style_bg_color(mogoring1, colortable[jautoncurated[selected].RedBluFilt], LV_PART_MAIN);
 		lv_obj_set_size(mogoringback1, 46, (78 - (13 * jautoncurated[selected].Mogo1)));
 		lv_obj_set_style_bg_color(mogoring2, colortable[jautoncurated[selected].RedBluFilt], LV_PART_MAIN);
@@ -121,7 +121,9 @@ static void selectauton(lv_event_t *e) {
 
 static void updownbtn(lv_event_t *e) {
 	if(lv_obj_has_state(autonselectup, LV_EVENT_CLICKED)) {
-		if(j < 4)
+		if(jautoncurated.size()%4 == 0 && j < 4)
+			j = (jautoncurated.size() - 4);
+		else if(j < 4)
 			j = (jautoncurated.size() - (jautoncurated.size() % 4));
 		else
 			j -= 4;

@@ -5,11 +5,6 @@
 // website! https://ez-robotics.github.io/EZ-Template/
 /////
 
-void tasks() {
-	// pros::Task allianceprobing(allianceProbe);
-	// pros::Task ringsort(ringsensTask);
-}
-
 // These are out of 127
 const int DRIVE_SPEED = 127;
 const int TURN_SPEED = 90;
@@ -74,7 +69,7 @@ void move_forward() { chassis.pid_drive_set(5_in, DRIVE_SPEED, true); }
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true);
 }*/
 void testautonRed() {
-	tasks();
+	pros::Task ringsort(ringsensTask);
 	redAssign();
 	lv_obj_t *gyat = lv_obj_create(autoselector);
 	lv_obj_set_style_bg_color(gyat, lv_color_hex(0x42f548), LV_PART_MAIN);
@@ -84,8 +79,22 @@ void testautonRed() {
 	chassis.pid_wait();
 }
 
+void testcolorsortRed() {
+	pros::Task ringsort(ringsensTask);
+	redAssign();
+	intake.move(-127);
+	chassis.pid_drive_set(60_in, 32, false);
+	chassis.pid_wait();
+	chassis.pid_turn_set(90_deg, TURN_SPEED);
+	chassis.pid_wait_quick_chain();
+	chassis.pid_drive_set(20_in, 32, false);
+	chassis.pid_wait();
+	chassis.pid_turn_set(135_deg, TURN_SPEED);
+	wallmech.move_relative(-700, -127);
+}
+
 void testautonBlue() {
-	tasks();
+	pros::Task ringsort(ringsensTask);
 	blueAssign();
 	lv_obj_t *gyat2 = lv_obj_create(autoselector);
 	lv_obj_set_style_bg_color(gyat2, lv_color_hex(0xa442f5), LV_PART_MAIN);
@@ -95,8 +104,22 @@ void testautonBlue() {
 	chassis.pid_wait();
 }
 
+void testcolorsortBlue() {
+	pros::Task ringsort(ringsensTask);
+	redAssign();
+	intake.move(-127);
+	chassis.pid_drive_set(60_in, 32, false);
+	chassis.pid_wait();
+	chassis.pid_turn_set(-90_deg, TURN_SPEED);
+	chassis.pid_wait_quick_chain();
+	chassis.pid_drive_set(20_in, 32, false);
+	chassis.pid_wait();
+	chassis.pid_turn_set(-135_deg, TURN_SPEED);
+	wallmech.move_relative(-700, -127);
+}
+
 void red_50WP() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// redAssign();
 	// Get mogo and score 2 rings
 	mogomech.set(false);
@@ -127,7 +150,7 @@ void red_50WP() {
 }
 
 void red_4ring() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// redAssign();
 	// wallmech.move_relative(-100, -127);
 	// score on allaince stake
@@ -179,7 +202,7 @@ void red_4ring() {
 }
 
 void red_4greed() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// redAssign();
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 60, true);
@@ -215,7 +238,7 @@ void red_4greed() {
 }
 
 void red_6ring() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// redAssign();
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 60, true);
@@ -305,7 +328,7 @@ void red_6ring() {
 }*/
 
 void blue_50WP() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// blueAssign();
 	// Get mogo and score 2 rings
 	mogomech.set(false);
@@ -337,7 +360,7 @@ void blue_50WP() {
 }
 
 void blue_4ring() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// blueAssign();
 	// wallmech.move_relative(-100, -127);
 	// score on allaince stake
@@ -389,7 +412,7 @@ void blue_4ring() {
 }
 
 void blue_4greed() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// blueAssign();
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 60, true);
@@ -424,7 +447,7 @@ void blue_4greed() {
 }
 
 void blue_6ring() {
-	// tasks();
+	// pros::Task ringsort(ringsensTask);
 	// blueAssign();
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 75, true);

@@ -48,7 +48,7 @@ void colorProbe() {
 	}
 	lv_obj_move_background(ringind);
 }
-void allianceProbe() {
+/*void allianceProbe() {
 	while(true) {
 		if(allianceColor == 'R') {
 			pros::screen::set_pen(pros::Color::orange_red);
@@ -62,7 +62,7 @@ void allianceProbe() {
 		}
 		pros::delay(10);
 	}
-}
+}*/
 
 // variable changed during auton and driver to determine red/blue/no alliance selection
 

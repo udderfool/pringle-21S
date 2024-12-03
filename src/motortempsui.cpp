@@ -82,7 +82,7 @@ void tempcheckctrl() {
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "i: warm, %.0f°C    ", intakeTemp);
 			else if(intakeTemp > 45)
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "i: hot, %.0f°C    ", intakeTemp);
-			pros::delay(2000);
+			pros::delay(90);
 		} else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT) == true) {
 			if(wallmechTemp <= 30)
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "w: cool, %.0f°C    ", wallmechTemp);
@@ -90,7 +90,7 @@ void tempcheckctrl() {
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "w: warm, %.0f°C    ", wallmechTemp);
 			else if(wallmechTemp > 45)
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "w: hot, %.0f°C    ", wallmechTemp);
-			pros::delay(2000);
+			pros::delay(90);
 		} else {
 			if(driveTemp <= 30)
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "d: cool, %.0f°C    ", driveTemp);
@@ -98,7 +98,7 @@ void tempcheckctrl() {
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "d: warm, %.0f°C    ", driveTemp);
 			else if(driveTemp > 45)
 				pros::c::controller_print(pros::E_CONTROLLER_MASTER, 0, 0, "d: hot, %.0f°C    ", driveTemp);
-			pros::delay(2000);
+			pros::delay(90);
 		}
 		pros::delay(10);
 	}

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "autons.hpp"
 
 // big money $_$
 /////
@@ -27,9 +28,16 @@ pros::Motor driveright1(17);
 pros::Motor driveright2(18);
 pros::Motor driveright3(20);
 
-vector<jas::motors::motordata> motorbar{{0, intake1, "intake 1"},	  {1, driveleft1, "drive l1"},	{2, driveleft2, "drive l2"},
-										{3, driveleft3, "drive l3"},  {4, intake2, "intake 2"},		{5, driveright1, "drive r1"},
-										{6, driveright2, "drive r2"}, {7, driveright3, "drive r3"}, {8, wallstake, "wallmech"}};
+vector<jas::motors::motordata> motorbar{
+  {0, intake1, "intake 1"},	  
+  {1, driveleft1, "drive l1"},	
+  {2, driveleft2, "drive l2"},
+  {3, driveleft3, "drive l3"},  
+  {4, intake2, "intake 2"},		
+  {5, driveright1, "drive r1"},
+  {6, driveright2, "drive r2"}, 
+  {7, driveright3, "drive r3"}, 
+  {8, wallstake, "wallmech"}};
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -63,9 +71,11 @@ void initialize() {
 	j_auton_selector.jautonpopulate(
 		{jas::jasauton(blue_50WP, 1, 1, "Blue 50% WP", "Blue 2 ring in positive corner", 2, 0, false),
 		 jas::jasauton(testautonBlue, 1, 2, "Blue test auton", "Testing for blue autons", 0, 0, false),
+		 jas::jasauton(testcolorsortRed, 1, 2, "Blue color sort test", "Testing for blue color sorting functions", 1, 5, true),
 
 		 jas::jasauton(red_50WP, 0, 1, "Red 50% WP", "Red 2 ring in positive corner", 2, 0, false),
 		 jas::jasauton(testautonRed, 0, 2, "Red test auton", "Testing for red autons", 0, 0, false),
+		 jas::jasauton(testcolorsortRed, 0, 2, "Red color sort test", "Testing for red color sorting functions", 5, 1, true),
 
 		 jas::jasauton(blue_4greed, 1, 0, "Blue 4 ring no WP", "Blue 4 ring in negative corner", 4, 0, false),
 		 jas::jasauton(blue_4ring, 1, 0, "Blue 4 ring WP", "Blue 3 ring in negative corner + 1 ring on alliance", 3, 0, true),
@@ -81,12 +91,12 @@ void initialize() {
 
 	// Initialize chassis and auton selector
 	chassis.initialize();
-	pros::Task tempcheckcontroller(tempcheckctrl);
-	pros::Task colordetection(colorDetect);
-	pros::Task colorprobing(colorProbe);
 	screeninit();
 	tempcheck();
 	master.rumble(".");
+	pros::Task tempcheckcontroller(tempcheckctrl);
+	pros::Task colordetection(colorDetect);
+	pros::Task colorprobing(colorProbe);
 }
 
 /**
