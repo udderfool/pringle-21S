@@ -15,13 +15,3 @@ temp.log
 temp.errors
 *.ini
 .d/
-.DS_Store
-compile_commands.json
-/bin
-/.cache
-/.vscode
-/.vscode
-/.d
-compile_commands.json
-compile_commands.json
-compile_commands.json
