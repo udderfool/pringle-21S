@@ -1,10 +1,10 @@
 #include "main.h"
 
 std::string intakeColor = "neutral";
-char allianceColor = 'A';
 bool discardSwitch;
 lv_obj_t* ringind = lv_obj_create(autoselector);
 int spurfly;
+typedef struct alliancecolor {char alliance;} alliancecolor;
 
 void colorDetect() {
 	while(true) {
@@ -66,12 +66,6 @@ void colorProbe() {
 
 // variable changed during auton and driver to determine red/blue/no alliance selection
 
-void redAssign() { allianceColor = 'R'; }
-
-void blueAssign() { allianceColor = 'B'; }
-
-void neutralAssign() { allianceColor = 'A'; }
-
 void discardNormalSet() {
 	discardSwitch = false;
 	// pros::screen::set_pen(pros::Color::white_smoke);
@@ -98,13 +92,14 @@ void discard() {
 		pros::delay(500);
 		mogomech.set(true);
 		intake.move(0);
-		neutralAssign();
 		return;
 	}
 }
 
-void ringsensTask() {
+void ringsensTask(void* assign) {
 	while(true) {
+		char allianceColor = ((alliancecolor*)assign)->alliance; 
+		//printf(" adsadad %c", allianceColor);
 		if((allianceColor == 'R' && intakeColor == "blue") || (allianceColor == 'B' && intakeColor == "red")) {
 			discard();
 		}

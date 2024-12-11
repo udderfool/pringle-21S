@@ -7,12 +7,9 @@
 void colorDetect();
 void colorProbe();
 void allianceProbe();
-void ringsensTask();
+void ringsensTask(void* assign);
 
 // auton functions
-void redAssign();
-void blueAssign();
-void neutralAssign();  // applied during driver and during certain sections of auton- stops discard code from triggering
 void discard();
 void discardSafetySet();
 void discardNormalSet();

@@ -1,3 +1,8 @@
+#include "liblvgl/core/lv_obj.h"
+#include "liblvgl/core/lv_obj_style.h"
+#include "liblvgl/core/lv_obj_tree.h"
+#include "liblvgl/lv_api_map.h"
+#include "liblvgl/widgets/lv_label.h"
 #include "main.h"
 
 /////
@@ -52,9 +57,25 @@ void default_constants() {
   chassis.pid_angle_behavior_set(ez::shortest);  // Changes the default behavior for turning, this defaults it to the shortest path there
 }
 
+int rizzler = 1;
+lv_obj_t *gyat;
+
 void testtestest() {
+  /*printf("test aaaaa");
+	gyat = lv_label_create(autoselector);
+	rizzler++;
+	lv_obj_set_style_bg_color(gyat, lv_color_hex(0x42f548), LV_PART_MAIN);
+	lv_obj_set_size(gyat, 20, 20);
+	lv_obj_set_scrollbar_mode(gyat, LV_SCROLLBAR_MODE_OFF);
+	lv_obj_set_style_bg_opa(gyat, 255, LV_PART_MAIN);
+	rizzler%2 == 0 ? lv_obj_set_style_bg_color(gyat, lv_color_hex(0x42f548), LV_PART_MAIN) : lv_obj_set_style_bg_color(gyat, lv_color_hex(0x190f39), LV_PART_MAIN);
+	lv_label_set_text_fmt(gyat, "%d", rizzler);
+	lv_obj_move_foreground(gyat);*/
+	std::cout << "running" << std::endl;
   chassis.odom_pose_set({10_in, 0_in, 0_deg});
-  chassis.pid_odom_set({{{0_in, 40_in}, fwd}, {{20_in, 60_in}, fwd}});
+  chassis.pid_odom_set(20_in, DRIVE_SPEED, false);
+  chassis.pid_odom_set({{{0_in, 40_in}, fwd, 110}, {{20_in, 60_in}, fwd, 110}});
+  chassis.pid_wait();
 }
 
 void move_forward() { chassis.pid_drive_set(5_in, DRIVE_SPEED, true); }
@@ -95,19 +116,15 @@ void move_forward() { chassis.pid_drive_set(5_in, DRIVE_SPEED, true); }
   chassis.pid_drive_set(-48_in, DRIVE_SPEED, true);
 }*/
 void testautonRed() {
-	pros::Task ringsort(ringsensTask);
-	redAssign();
-	lv_obj_t *gyat = lv_obj_create(autoselector);
-	lv_obj_set_style_bg_color(gyat, lv_color_hex(0x42f548), LV_PART_MAIN);
-	lv_obj_set_size(gyat, 20, 20);
-	lv_obj_set_scrollbar_mode(gyat, LV_SCROLLBAR_MODE_OFF);
+	printf("test aaaaa");
+	pros::Task ringsort(ringsensTask, (void*)"R");
 	intake.move(-127);
 	chassis.pid_wait();
 }
 
 void testcolorsortRed() {
-	pros::Task ringsort(ringsensTask);
-	redAssign();
+	printf("test aaaaa");
+	pros::Task ringsort(ringsensTask, (void*)"R");
 	intake.move(-127);
 	chassis.pid_drive_set(60_in, 32, false);
 	chassis.pid_wait();
@@ -120,19 +137,15 @@ void testcolorsortRed() {
 }
 
 void testautonBlue() {
-	pros::Task ringsort(ringsensTask);
-	blueAssign();
-	lv_obj_t *gyat2 = lv_obj_create(autoselector);
-	lv_obj_set_style_bg_color(gyat2, lv_color_hex(0xa442f5), LV_PART_MAIN);
-	lv_obj_set_scrollbar_mode(gyat2, LV_SCROLLBAR_MODE_OFF);
-	lv_obj_set_size(gyat2, 20, 10);
+	printf("test aaaaa");
+	pros::Task ringsort(ringsensTask, (void*)"B");
 	mogomech.set(true);
 	chassis.pid_wait();
 }
 
 void testcolorsortBlue() {
-	pros::Task ringsort(ringsensTask);
-	redAssign();
+	printf("test aaaaa");
+	pros::Task ringsort(ringsensTask, (void*)"B");
 	intake.move(-127);
 	chassis.pid_drive_set(60_in, 32, false);
 	chassis.pid_wait();
@@ -145,8 +158,7 @@ void testcolorsortBlue() {
 }
 
 void red_50WP() {
-	// pros::Task ringsort(ringsensTask);
-	// redAssign();
+	// pros::Task ringsort(ringsensTask, (void*)"R");
 	// Get mogo and score 2 rings
 	mogomech.set(false);
 	chassis.pid_drive_set(-34_in, 75, true);
@@ -171,13 +183,11 @@ void red_50WP() {
 	intake.move(0);
 	wallmech.move_relative(-500, -127);
 	chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
 void red_4ring() {
-	// pros::Task ringsort(ringsensTask);
-	// redAssign();
+	// pros::Task ringsort(ringsensTask, (void*)"R");
 	// wallmech.move_relative(-100, -127);
 	// score on allaince stake
 	chassis.pid_drive_set(-15_in, DRIVE_SPEED, false);
@@ -223,13 +233,11 @@ void red_4ring() {
 	chassis.pid_wait_quick_chain();
 	wallmech.move_relative(500, -127);
 	chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
 void red_4greed() {
-	// pros::Task ringsort(ringsensTask);
-	// redAssign();
+	// pros::Task ringsort(ringsensTask, (void*)"R");s
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 60, true);
 	chassis.pid_wait_until(-27.5_in);
@@ -258,15 +266,11 @@ void red_4greed() {
 	chassis.pid_turn_relative_set(45_deg, TURN_SPEED);
 	chassis.pid_wait_quick_chain();
 	wallmech.move_relative(-500, -127);
-	chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
 void red_6ring() {
-	// pros::Task ringsort(ringsensTask);
-	// redAssign();
-	// wallmech.move_relative(-100, -127);
+	// pros::Task ringsort(ringsensTask, (void*)"R");
 	chassis.pid_drive_set(-30_in, 60, true);
 	chassis.pid_wait_until(-27_in);
 	mogomech.set(true);
@@ -311,7 +315,6 @@ void red_6ring() {
 	chassis.pid_wait_quick_chain();
 	wallmech.move_relative(500, -127);
 	chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
@@ -354,8 +357,7 @@ void red_6ring() {
 }*/
 
 void blue_50WP() {
-	// pros::Task ringsort(ringsensTask);
-	// blueAssign();
+	// 	pros::Task ringsort(ringsensTask, (void*)"B");
 	// Get mogo and score 2 rings
 	mogomech.set(false);
 	chassis.pid_drive_set(-35_in, 60, true);
@@ -381,13 +383,11 @@ void blue_50WP() {
 	}
 	wallmech.move_relative(-500, -127);
 	chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
 void blue_4ring() {
-	// pros::Task ringsort(ringsensTask);
-	// blueAssign();
+	// pros::Task ringsort(ringsensTask, (void*)"R");
 	// wallmech.move_relative(-100, -127);
 	// score on allaince stake
 	chassis.pid_drive_set(-16_in, DRIVE_SPEED, false);
@@ -433,13 +433,11 @@ void blue_4ring() {
 	chassis.pid_wait_quick_chain();
 	wallmech.move_relative(500, -127);
 	chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
 void blue_4greed() {
-	// pros::Task ringsort(ringsensTask);
-	// blueAssign();
+	// pros::Task ringsort(ringsensTask, (void*)"R");
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 60, true);
 	chassis.pid_wait_until(-27.5_in);
@@ -468,13 +466,11 @@ void blue_4greed() {
 	chassis.pid_wait_quick_chain();
 	wallmech.move_relative(-500, -127);
 	chassis.pid_drive_set(48_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 
 void blue_6ring() {
-	// pros::Task ringsort(ringsensTask);
-	// blueAssign();
+	// pros::Task ringsort(ringsensTask, (void*)"R");
 	// wallmech.move_relative(-100, -127);
 	chassis.pid_drive_set(-30_in, 75, true);
 	chassis.pid_wait_until(-28_in);
@@ -520,7 +516,6 @@ void blue_6ring() {
 	chassis.pid_wait_quick_chain();
 	wallmech.move_relative(500, -127);
 	chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
-	neutralAssign();
 	chassis.pid_wait();
 }
 

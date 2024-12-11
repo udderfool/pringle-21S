@@ -23,8 +23,8 @@ ez::Drive chassis(
 //  `2.75` is the wheel diameter
 //  `4.0` is the distance from the center of the wheel to the center of the robot
 // ez::tracking_wheel right_tracker({-'A', -'B'}, 2.75, 4.0);  // ADI Encoders
-ez::tracking_wheel vertical_tracker(16, 2, 0);	// Rotation sensors
-ez::tracking_wheel horiz_tracker(10, 2, 2);
+ez::tracking_wheel vertical_tracker(16, 2, 0.7);	// Rotation sensors
+ez::tracking_wheel horiz_tracker(10, 2, -0.5);
 // list of motors to get temperature
 pros::Motor intake1(4);
 pros::Motor intake2(6);
@@ -75,7 +75,7 @@ void initialize() {
 	// pros::E_CONTROLLER_DIGITAL_A);
 
 	// Autonomous Selector using lvgl
-	j_auton_selector.jautonpopulate(
+	/*j_auton_selector.jautonpopulate(
 		{jas::jasauton(blue_50WP, 1, 1, "Blue 50% WP", "Blue 2 ring in positive corner", 2, 0, false),
 		 jas::jasauton(testautonBlue, 1, 2, "Blue test auton", "Testing for blue autons", 0, 0, false),
 		 jas::jasauton(testcolorsortRed, 1, 2, "Blue color sort test", "Testing for blue color sorting functions", 1, 5, true),
@@ -95,11 +95,13 @@ void initialize() {
 		 jas::jasauton(skills50, 0, 2, "New skills auton", "Potential 50 pt skills auton- does not work yet, takes too long", 5, 6, true),
 
 		 jas::jasauton(move_forward, 2, 2, "Move forward", "Drive straight forward", 0, 0, false),
-		 jas::jasauton(testtestest, 2, 2, "Odom test", "Simple test to see if odometry works", 3, 2, true)});
+		 jas::jasauton(testtestest, 2, 2, "Odom test", "Simple test to see if odometry works", 3, 2, true)
+		 });*/
 
-	/* //auton builder modules, for testing
+	 //auton builder modules, for testing
 	j_auton_selector.jautonpopulate(
-			{jas::jasauton(red_midneg_2ring, 0, 0, "Red ring cluster module", "Red negative corner POI, cluster of 2 rings near mid", 2, 0, false),
+			{jas::jasauton(testautonbuilder, 2, 2, "Test auton modules", "Test auton builder modules manually", 4, 0, true),
+			 jas::jasauton(red_midneg_2ring, 0, 0, "Red ring cluster module", "Red negative corner POI, cluster of 2 rings near mid", 2, 0, false),
 			 jas::jasauton(red_neg_btmringstack, 0, 0, "Red negative bottom ring module", "Red negative corner POI, bottom ring of ring stack", 1, 0, false),
 			 jas::jasauton(red_neg_mogo, 0, 0, "Red negative mogo module", "Red negative corner POI, closest mogo", 0, 0, false),
 			 jas::jasauton(red_neg_corner, 0, 0, "Red negative corner module", "Red negative corner POI, 2 ring corner rush", 2, 0, false),
@@ -126,7 +128,7 @@ void initialize() {
 			 jas::jasauton(blue_pos_btmringstack, 1, 1, "Blue positive bottom ring module", "Blue positive corner POI, bottom ring of ring stack", 1, 0, false),
 			 jas::jasauton(blue_pos_mogo, 1, 1, "Blue positive mogo module", "Blue positive corner POI, closest mogo", 0, 0, false),
 			 jas::jasauton(blue_pos_corner, 1, 1, "Blue positive corner module", "Blue positive corner POI, 2 ring corner rush", 2, 0, false)});
-		*/
+		
 
 	// Initialize chassis and auton selector
 	chassis.initialize();
@@ -193,6 +195,7 @@ void autonomous() {
 
 	// autonomous consistency
 	if(noselection == false) {
+		printf("Running auton");
 		jautonrun();
 	}
 	// ez::as::auton_selector.selected_auton_call();  // Calls selected auton from
@@ -282,7 +285,6 @@ void ez_template_etxras() {
  */
 
 void opcontrol() {
-	neutralAssign();
 	// This is preference to what you like to drive on
 	chassis.drive_brake_set(MOTOR_BRAKE_BRAKE);
 
@@ -304,7 +306,6 @@ void opcontrol() {
 		setRedirect();
 		setWall();
 		setdoinker();
-		neutralAssign();
 
 		if(lv_obj_get_parent(pageswitch) == motortemps) {
 			for(int m = 0; m < motorbar.size(); m++) {

@@ -14,6 +14,7 @@ static void pageswitchbtn(lv_event_t* e);
 
 extern lv_obj_t* autoselector;
 extern lv_obj_t* motortemps;
+extern lv_obj_t* autobuilder;
 extern lv_obj_t* pageswitch;
 
 extern bool noselection;

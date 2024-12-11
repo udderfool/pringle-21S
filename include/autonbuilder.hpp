@@ -4,6 +4,8 @@
 
 extern Drive chassis;
 
+void testautonbuilder();
+
 void red_midneg_2ring();
 void red_neg_btmringstack();
 void red_neg_mogo();

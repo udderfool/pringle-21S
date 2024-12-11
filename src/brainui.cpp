@@ -6,6 +6,7 @@ int j = 0;
 int selected = 0;
 int redblustore = 0;
 int posnegstore = 0;
+int scrpage = 0;
 vector<jasauton> jautoncurated = {};
 bool noselection;
 jas::jautontable j_auton_selector;
@@ -39,6 +40,7 @@ void jautontable::jautonpopulate(std::vector<jasauton> JasAutonTable) {
 
 lv_obj_t *autoselector = lv_obj_create(NULL);
 lv_obj_t *motortemps = lv_obj_create(NULL);
+lv_obj_t *autobuilder = lv_obj_create(NULL);
 lv_obj_t *overlay = lv_img_create(autoselector);
 LV_IMG_DECLARE(brainuioverlay);
 lv_obj_t *autonselectup = lv_btn_create(autoselector);
@@ -116,12 +118,13 @@ static void selectauton(lv_event_t *e) {
 		lv_obj_set_style_bg_color(mogoring2, colortable[jautoncurated[selected].RedBluFilt], LV_PART_MAIN);
 		lv_obj_set_size(mogoringback2, 46, (78 - (13 * jautoncurated[selected].Mogo2)));
 		jautoncurated[selected].AllyRing == true ? lv_obj_add_flag(alliancering, LV_OBJ_FLAG_HIDDEN) : lv_obj_clear_flag(alliancering, LV_OBJ_FLAG_HIDDEN);
+		//jautonrun();  // comment this out
 	}
 }
 
 static void updownbtn(lv_event_t *e) {
 	if(lv_obj_has_state(autonselectup, LV_EVENT_CLICKED)) {
-		if(jautoncurated.size()%4 == 0 && j < 4)
+		if(jautoncurated.size() % 4 == 0 && j < 4)
 			j = (jautoncurated.size() - 4);
 		else if(j < 4)
 			j = (jautoncurated.size() - (jautoncurated.size() % 4));
@@ -134,8 +137,11 @@ static void updownbtn(lv_event_t *e) {
 	listupdate();
 }
 
+lv_obj_t *screens[3]{autoselector, motortemps, autobuilder};
+
 static void pageswitchbtn(lv_event_t *e) {
-	lv_obj_get_parent(pageswitch) == autoselector ? lv_scr_load(motortemps) : lv_scr_load(autoselector);
+	scrpage = (scrpage + 1) % 3;
+	lv_scr_load(screens[scrpage]);
 	lv_obj_set_parent(pageswitch, lv_scr_act());
 }
 
