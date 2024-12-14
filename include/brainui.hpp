@@ -17,7 +17,9 @@ extern lv_obj_t* motortemps;
 extern lv_obj_t* autobuilder;
 extern lv_obj_t* pageswitch;
 
+extern vector<lv_color32_t> colortable;
 extern bool noselection;
+
 namespace jas {
 class jasauton {
    public:

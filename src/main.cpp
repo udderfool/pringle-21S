@@ -134,6 +134,7 @@ void initialize() {
 	chassis.initialize();
 	screeninit();
 	tempcheck();
+	autonbuilderinit();
 	master.rumble(".");
 	pros::Task tempcheckcontroller(tempcheckctrl);
 	pros::Task colordetection(colorDetect);

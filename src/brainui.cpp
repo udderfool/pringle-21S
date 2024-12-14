@@ -61,7 +61,7 @@ lv_obj_t *mogoringback2 = lv_obj_create(autoselector);
 lv_obj_t *alliancering = lv_obj_create(autoselector);
 lv_obj_t *pageswitch = lv_btn_create(autoselector);
 
-vector<lv_color32_t> colortable = {lv_color_hex(0xff2a00), lv_color_hex(0x0066cc), lv_color_hex(0x5d5d5d)};
+vector<lv_color32_t> colortable = {lv_color_hex(0xff2a00), lv_color_hex(0x0066cc), lv_color_hex(0x5d5d5d), lv_color_hex(0x00b5bc), lv_color_hex(0xdb8826),  lv_color_hex(0x5d5d5d), lv_color_hex(0x84f03b)};
 
 void jautonrun() { jautoncurated[selected].AutonCall(); }
 
@@ -176,6 +176,7 @@ void screeninit() {
 	lv_scr_load(autoselector);
 	lv_obj_add_style(autoselector, &style, LV_PART_MAIN);
 	lv_obj_add_style(motortemps, &style, LV_PART_MAIN);
+	lv_obj_add_style(autobuilder, &style, LV_PART_MAIN);
 	lv_obj_set_size(autonselectup, 11, 58);
 	lv_obj_set_pos(autonselectup, 242, 50);
 	lv_obj_set_size(autonselectdown, 11, 58);

@@ -1,8 +1,11 @@
 #include "autonbuilder.hpp"
+#include "EZ-Template/util.hpp"
 #include "main.h"
+#include "subsystems.hpp"
 
 void testautonbuilder() {
     pros::Task ringsort(ringsensTask, (void*)"R");
+    chassis.odom_pose_set({48_in, 21_in, 180_deg});
     red_neg_mogo();
     red_neg_btmringstack();
     red_midneg_2ring();
@@ -24,7 +27,6 @@ void red_neg_btmringstack() {
 }
 
 void red_neg_mogo() {
-    chassis.odom_pose_set({48_in, 21_in, 180_deg});
     chassis.pid_odom_set({{48_in, 46_in}, rev, 127});
     chassis.pid_wait_quick_chain();
     mogomech.set(true);
@@ -37,9 +39,11 @@ void red_neg_corner() {
 }
 
 void red_mid_topringstack() {
+    mogomech.set(false);
     intakeLevel.set(true);
     intake.move(-127);
     chassis.pid_odom_set({{72_in, 24_in}, fwd, 127});
+    pros::delay(500);
     intakeLevel.set(false);
     chassis.pid_wait();
 }
@@ -66,7 +70,11 @@ void red_pos_mogo() {
 }
 
 void red_midpos_mogo() {
-    //goal rush
+    doinker.set(true);
+    chassis.pid_odom_set({{120_in, 62_in}, fwd, 127});
+    chassis.pid_wait();
+    chassis.pid_odom_set({{120_in, 48_in}, rev, 127});
+    chassis.pid_wait();
 }
 
 void red_pos_corner() {
